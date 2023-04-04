@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    height: 100%;
+}
+
+.el-menu {
+    min-height:100%;
+    overflow-x:hidden;
+    active-text-color:#ff0000;
+}
+
+.el-container{
+    height: 100%;
+    border: 1px solid #eee;
+}
+
+#home{
+    height:100%;
+}
+
+.el-main{
+    padding: 0;
+    text-align: left;
+}
