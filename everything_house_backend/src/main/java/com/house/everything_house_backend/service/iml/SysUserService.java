@@ -1,7 +1,12 @@
 package com.house.everything_house_backend.service.iml;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.house.everything_house_backend.common.Constants;
+import com.house.everything_house_backend.controller.dto.UserDTO;
 import com.house.everything_house_backend.entities.User;
+import com.house.everything_house_backend.exception.ServiceException;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +60,23 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
     public boolean save(User entity) {
         return super.save(entity);
     }
+
+    public UserDTO login(UserDTO userDTO) {
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("username",userDTO.getUsername());
+        queryWrapper.eq("password",userDTO.getPassword());
+        User one;
+        try{
+            one=getOne(queryWrapper);
+        }catch (Exception e){
+            throw new ServiceException(Constants.CODE_500,"系统错误");//这里假设查询了多于1条记录，就让他报系统错误
+        }
+        if(one!=null){  //以下是登录判断业务
+            BeanUtil.copyProperties(one,userDTO,true);
+            return userDTO;//返回登录类userDTO
+        }else {
+            throw new ServiceException(Constants.CODE_600,"用户名或密码错误");
+        }
+    }
+
 }

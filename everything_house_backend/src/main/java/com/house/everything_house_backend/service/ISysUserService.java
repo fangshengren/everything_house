@@ -1,5 +1,6 @@
 package com.house.everything_house_backend.service;
 
+import com.house.everything_house_backend.controller.dto.UserDTO;
 import com.house.everything_house_backend.entities.User;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ISysUserService {
     boolean importUsersFromXlsx(List<User> userList);
 
     boolean save(User user);
+
+    UserDTO login(UserDTO userDTO);
 }

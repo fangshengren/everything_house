@@ -1,9 +1,13 @@
 package com.house.everything_house_backend.controller;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.excel.EasyExcel;
+import com.house.everything_house_backend.common.Constants;
+import com.house.everything_house_backend.common.Result;
+import com.house.everything_house_backend.controller.dto.UserDTO;
 import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.listener.UserExcelListener;
 import com.house.everything_house_backend.mapper.UserMapper;
@@ -117,4 +121,17 @@ public class UserController {
             return "导入失败";
         }
     }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody UserDTO userDTO){
+        String username=userDTO.getUsername();//先对userDTO进行是否为空的校验
+        String password=userDTO.getPassword();
+        //调用hutool工具中的StrUtil函数实现用户名和密码是否为空的判断
+        if(StrUtil.isBlank(username) || StrUtil.isBlank(password)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        UserDTO dto=sysUserService.login(userDTO);
+        return Result.success(dto);
+    }
+
 }
