@@ -19,7 +19,13 @@ html,body{
 }
 
 #home{
-    height:100%;
+    min-height: 100vh;
+}
+
+.nickname_display{
+    font-size: 16px;
+    color: #4a4a4a;
+    /*font-weight: bold;*/
 }
 
 .el-main{
@@ -42,3 +48,15 @@ html,body{
     top: 50%;
     transform: translate(-50%,-50%)
 }
+
+.el-dropdown-menu__item{
+    padding: 0;
+}
+
+.el-dropdown-menu__item div{
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+}
+

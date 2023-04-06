@@ -55,6 +55,13 @@ export default {
           }
         })
       },
+      resetLoginForm() {
+        this.loginForm = {
+          username: '',
+          password: ''
+        };
+        this.$refs['LoginFormRef'].clearValidate();
+      },
     }
   }
 </script>

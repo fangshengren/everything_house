@@ -1,18 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import User from "@/views/User.vue";
+import Manage from '../views/Manage.vue'
+import User from '../views/User.vue'
+import Login from '../views/Login.vue'
 import Home from "@/views/Home.vue";
-import Manage from "@/views/Manage.vue";
-import Login from "@/views/Login.vue"
-
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Manage',
-    redirect:'/login',
-    component: Login,
+    redirect: '/login',
+    component: Manage,
     children:[
       {
         path: 'user',
@@ -30,12 +29,11 @@ const routes = [
     ]
   },
   {
-    path:'login',
-    name:'Login',
-    component: Login,
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
 ]
-
 
 const router = new VueRouter({
   mode: 'history',
