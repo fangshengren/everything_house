@@ -9,6 +9,7 @@ import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.exception.ServiceException;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
+import com.house.everything_house_backend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,9 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
         }
         if(one!=null){  //以下是登录判断业务
             BeanUtil.copyProperties(one,userDTO,true);
+            //设置token
+            String token= TokenUtils.genToken(one.getId().toString(),one.getPassword().toString());
+            userDTO.setToken(token);
             return userDTO;//返回登录类userDTO
         }else {
             throw new ServiceException(Constants.CODE_600,"用户名或密码错误");
