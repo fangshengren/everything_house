@@ -21,8 +21,12 @@
         <span slot="title">系统管理</span>
       </template>
       <el-menu-item index="/user">
-        <i class="el-icon-s-custom"></i>
+        <i class="el-icon-menu"></i>
         <span slot="title">用户管理</span>
+      </el-menu-item>
+      <el-menu-item index="/menu">
+        <i class="el-icon-menu"></i>
+        <span slot="title">菜单管理</span>
       </el-menu-item>
     </el-submenu>
   </el-menu>
