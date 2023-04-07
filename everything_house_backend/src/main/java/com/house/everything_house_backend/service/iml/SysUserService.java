@@ -4,15 +4,20 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.house.everything_house_backend.common.Constants;
+import com.house.everything_house_backend.entities.Menu;
 import com.house.everything_house_backend.controller.dto.UserDTO;
 import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.exception.ServiceException;
+import com.house.everything_house_backend.mapper.RoleMapper;
+import com.house.everything_house_backend.mapper.RoleMenuMapper;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
 import com.house.everything_house_backend.utils.TokenUtils;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +26,12 @@ import java.util.Map;
 public class SysUserService extends ServiceImpl<UserMapper, User> implements ISysUserService {
     @Autowired
     private UserMapper userMapper;
+    @Resource
+    private RoleMenuMapper roleMenuMapper;
+    @Resource
+    private RoleMapper roleMapper;
+    @Resource
+    private MenuService menuService;
 
     @Override
     public List<User> selectPage(Integer pageNum, Integer pageSize) {
@@ -77,10 +88,37 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
             //设置token
             String token= TokenUtils.genToken(one.getId().toString(),one.getPassword().toString());
             userDTO.setToken(token);
+            String role=one.getRole();//查询出用户的角色标识，比如ROLE_ADMIN
+            //设置用户的菜单列表
+            List<Menu> roleMenus=getRoleMenus(role);
+            userDTO.setMenus(roleMenus);
             return userDTO;//返回登录类userDTO
         }else {
             throw new ServiceException(Constants.CODE_600,"用户名或密码错误");
         }
     }
 
+    /**
+     * 获取当前用户的菜单列表
+
+     */
+    private List<Menu> getRoleMenus(String roleFlag){
+        //根据角色标识获取角色Id
+        Integer roleId=roleMapper.selectByflag(roleFlag);
+        //当前角色Id的所有菜单id集合
+        List<Integer> menuIds=roleMenuMapper.selectByRoleId(roleId);
+        //查出系统所有菜单
+        List<Menu> menus=menuService.findMenus("");
+        //筛选当前用户菜单
+        List<Menu> roleMenus=new ArrayList<>();
+        for(Menu menu:menus){
+            if(menuIds.contains(menu.getId())){
+                roleMenus.add(menu);
+            }
+            List<Menu> children=menu.getChildren();
+            //removeIf移除children里面不在menuIds集合中的元素
+            children.removeIf(child->!menuIds.contains(child.getId()));
+        }
+        return roleMenus;
+    }
 }

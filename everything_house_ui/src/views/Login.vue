@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {setRoutes} from "@/router";
+import {resetRouter} from "@/router";
 export default {
   name: "Login",
   data() {
@@ -39,29 +41,47 @@ export default {
       }
     }
   },
-    methods: {
-      login() {
-        this.$refs['LoginFormRef'].validate(async (valid) => {
-          if (valid) {
-            this.request.post("/user/login", this.loginForm).then(res => {
-              if (res.code == '200') {
-                localStorage.setItem("user", JSON.stringify(res.data));//存储用户信息到浏览器
-                this.$router.push("/home");
-                this.$message.success("登录成功");
-              } else {
-                this.$message.error(res.msg);
-              }
-            })
-          }
-        })
-      },
-      resetLoginForm() {
-        this.loginForm = {
-          username: '',
-          password: ''
-        };
-        this.$refs['LoginFormRef'].clearValidate();
-      },
+  methods:{
+    login(){
+      this.$refs['LoginFormRef'].validate(async (valid) => {
+        if (valid) {
+          this.request.post("/user/login",this.loginForm).then(res=>{
+            if(res.code=='200'){
+              localStorage.setItem("user",JSON.stringify(res.data));//存储用户信息到浏览器
+              localStorage.setItem("menus",JSON.stringify(res.data.menus));//存储用户权限菜单信息到浏览器
+              //动态设置当前用户的路由
+              setRoutes();
+              this.$router.push("/home");
+              this.$message.success("登录成功");
+            }else{
+              this.$message.error(res.msg);
+            }
+          })
+        }
+
+      })
+    },
+    resetLoginForm(){
+      this.$refs.LoginFormRef.resetFields()
     }
   }
+}
 </script>
+
+<style scoped>
+.login_container{
+  background-color: #2b4b6b;
+  height: 100%;
+}
+
+.login_box{
+  width: 350px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 3px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%)
+}
+</style>

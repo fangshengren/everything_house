@@ -1,5 +1,6 @@
 package com.house.everything_house_backend.controller.dto;
 
+import com.house.everything_house_backend.entities.Menu;
 import lombok.Data;
 
 import java.util.List;

@@ -11,6 +11,8 @@
         <result property="phone" column="phone"></result>
         <result property="nickname" column="nickname"></result>
         <result property="address" column="address"></result>
+        <result property="avatar" column="avatar"></result>
+        <result property="role" column="role"></result>
     </resultMap>
 
     <sql id="selectSysUserVo">
@@ -27,6 +29,8 @@
             <if test="phone != null and phone != ''">and phone like concat('%',#{phone}, '%')</if>
             <if test="email != null and email != ''">and email like concat('%',#{email}, '%')</if>
             <if test="address != null and address != ''">and address like concat('%',#{address}, '%')</if>
+            <if test="avatar != null and avatar != ''">and avatar like concat('%',#{avatar}, '%')</if>
+            <if test="role != null and role != ''">and role like concat('%',#{role}, '%')</if>
         </where>
         limit #{pageNumber},#{pageSize}
     </select>
@@ -39,6 +43,8 @@
             <if test="phone != null and phone != ''">and phone like concat('%',#{phone}, '%')</if>
             <if test="email != null and email != ''">and email like concat('%',#{email}, '%')</if>
             <if test="address != null and address != ''">and address like concat('%',#{address}, '%')</if>
+            <if test="avatar != null and avatar != ''">and avatar like concat('%',#{avatar}, '%')</if>
+            <if test="role != null and role != ''">and role like concat('%',#{role}, '%')</if>
         </where>
     </select>
 
@@ -85,6 +91,7 @@
             <if test="email != null ">email,</if>
             <if test="phone != null">phone,</if>
             <if test="address != null">address,</if>
+            <if test="role != null">role,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="username != null">#{username},</if>
@@ -93,6 +100,7 @@
             <if test="email != null ">#{email},</if>
             <if test="phone != null">#{phone},</if>
             <if test="address != null">#{address},</if>
+            <if test="role != null">#{role},</if>
         </trim>
     </insert>
 
@@ -106,6 +114,7 @@
             <if test="email != null ">email,</if>
             <if test="phone != null">phone,</if>
             <if test="address != null">address,</if>
+            <if test="role != null">role,</if>
         </trim>
         values
         <foreach collection="_parameter" index="index" item="item" separator=",">
@@ -117,6 +126,7 @@
                 <if test="item.email != null ">#{item.email},</if>
                 <if test="item.phone != null">#{item.phone},</if>
                 <if test="item.address != null">#{item.address},</if>
+                <if test="item.role != null">#{item.role},</if>
             </trim>
         </foreach>
     </insert>

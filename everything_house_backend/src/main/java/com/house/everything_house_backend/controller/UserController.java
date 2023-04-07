@@ -47,6 +47,8 @@ public class UserController {
         params.put("phone", user.getPhone());
         params.put("email", user.getEmail());
         params.put("address", user.getAddress());
+        params.put("avatar", user.getAvatar());
+        params.put("role", user.getRole());
         params.put("pageNumber", (pageNum - 1) * pageSize);
         params.put("pageSize", pageSize);
         List<User> data=sysUserService.selectByMultipleCondition(params);
@@ -97,6 +99,8 @@ public class UserController {
         writer.addHeaderAlias("phone","电话");
         writer.addHeaderAlias("address","地址");
         writer.addHeaderAlias("created_time","创建时间");
+        writer.addHeaderAlias("avatar","化身");
+        writer.addHeaderAlias("role","角色");
         //一次性写出list内部的对象到excel，强制输出标题
         writer.write(list,true);
         String filename= URLEncoder.encode("用户信息","UTF-8");

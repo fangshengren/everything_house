@@ -45,17 +45,20 @@ public class MenuController {
     //根据id查找菜单
     @GetMapping("/{id}")
     public Result findById(@PathVariable Integer id){
-
         return Result.success(menuService.getById(id));
     }
 
     //查询全部菜单
     @GetMapping
     public Result findAll( @RequestParam(defaultValue = "") String name){
-
         return Result.success(menuService.findMenus(name));
     }
 
+    //查询所有菜单id
+    @GetMapping("/ids")
+    public Result findAllIds(){
+        return Result.success(menuService.list().stream().map(Menu::getId));
+    }
 
     //分页查找
     @GetMapping("/page")
