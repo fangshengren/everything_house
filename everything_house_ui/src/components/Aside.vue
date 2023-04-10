@@ -4,10 +4,11 @@
            text-color=#ccc
            active-text-color=red
            router=""
+           :default-active="activeMenu"
   >
     <div style="height:60px; line-height:60px; text-align:center">
       <img src="../assets/logo.png" style="width:20px;position:relative;top:5px;margin-right:5px"/>
-      <b style="color:white">后台管理系统</b>
+      <b style="color:white">WYQ Project</b>
     </div>
     <div v-for="item in menus" :key="item.id">
       <div v-if="item.path">
@@ -44,13 +45,24 @@ export default {
     return{
       menus:localStorage.getItem("menus")?JSON.parse(localStorage.getItem("menus")):[],
       opens:localStorage.getItem("menus")?JSON.parse(localStorage.getItem("menus")).map(v=>v.id+''):[],
+      activeMenu: '',
     }
   },
   methods:{
     showmst(){
       console.log(this.opens);
+    },
+    updateActiveMenu() {
+      this.activeMenu = this.$route.path;
+    },
+  },
+  watch: {
+    $route: {
+      handler: 'updateActiveMenu',
+      immediate: true,
     }
-  }
+  },
+
 }
 </script>
 
