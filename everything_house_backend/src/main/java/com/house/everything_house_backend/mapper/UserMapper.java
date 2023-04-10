@@ -13,7 +13,8 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> selectPage(Integer pageNum, Integer pageSize);
     @Select("select * from sys_user where username like #{userName} limit #{pageNum},#{pageSize}")
     List<User> selectPageByUserName(Integer pageNum, Integer pageSize,String userName);
-
+    int selectNumberOfUser();
+    int selectNumberOfAdmin();
     @Select("select * from sys_user")
     List<User> findAll();
     List<User> selectByMultipleCondition(Map<String, Object> params);

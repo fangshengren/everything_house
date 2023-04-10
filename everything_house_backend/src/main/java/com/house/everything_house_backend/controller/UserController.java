@@ -63,6 +63,14 @@ public class UserController {
     public List<User> index(){
         return userMapper.findAll();
     }
+    @GetMapping("/UserNumber")
+    public int selectNumberOfUser(){
+        return userMapper.selectNumberOfUser();
+    }
+    @GetMapping("/AdminNumber")
+    public int selectNumberOfAdmin(){
+        return userMapper.selectNumberOfAdmin();
+    }
     @PostMapping
     //这里做了一个单纯的添加的示例，使用的是UserService中的save方法,实现添加和更新
     public Integer insert(@RequestBody User user){
@@ -98,7 +106,7 @@ public class UserController {
         writer.addHeaderAlias("email","邮箱");
         writer.addHeaderAlias("phone","电话");
         writer.addHeaderAlias("address","地址");
-        writer.addHeaderAlias("created_time","创建时间");
+        writer.addHeaderAlias("creat_time","创建时间");
         writer.addHeaderAlias("avatar","化身");
         writer.addHeaderAlias("role","角色");
         //一次性写出list内部的对象到excel，强制输出标题

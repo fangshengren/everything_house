@@ -21,4 +21,8 @@ public interface ISysUserService {
     boolean save(User user);
 
     UserDTO login(UserDTO userDTO);
+
+    int selectNumberOfUser();
+
+    int selectNumberOfAdmin();
 }

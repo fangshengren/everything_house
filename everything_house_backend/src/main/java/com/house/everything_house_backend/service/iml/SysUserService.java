@@ -42,6 +42,14 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
         return userMapper.selectPageByUserName(pageNum,pageSize,userName);
     }
     @Override
+    public int selectNumberOfUser(){
+        return userMapper.selectNumberOfUser();
+    }
+    @Override
+    public int selectNumberOfAdmin(){
+        return userMapper.selectNumberOfAdmin();
+    }
+    @Override
     public int insert(User user){
         return userMapper.insertUser(user);
     }

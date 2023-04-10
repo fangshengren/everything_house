@@ -50,22 +50,16 @@
                 label="昵称">
             </el-table-column>
             <el-table-column
+                prop="role"
+                label="角色">
+            </el-table-column>
+            <el-table-column
                 prop="address"
                 label="地址">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="240">
               <template slot-scope="scope">
                 <el-button type="success" size="small" icon="el-icon-edit" @click="handleEdit(scope.row)">编辑</el-button>
-<!--                <el-popconfirm style="margin-left:5px"-->
-<!--                               confirm-button-text='确定'-->
-<!--                               cancel-button-text='再想想'-->
-<!--                               icon="el-icon-info"-->
-<!--                               icon-color="red"-->
-<!--                               title="您确定删除吗？"-->
-<!--                               @confirm="handleDelete(scope.row.id)"-->
-<!--                >-->
-<!--                  <el-button type="danger" size="small" slot="reference" icon="el-icon-delete" @click="handleDelete(scope.row.id)">删除</el-button>-->
-
                 <el-button type="danger" size="small"  icon="el-icon-delete" @click="handleConfirmDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
@@ -86,6 +80,12 @@
             <el-form ref="form" label-width="80px" :model="form" :rules="rules">
               <el-form-item label="用户名" prop="username">
                 <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+              </el-form-item>
+              <el-form-item label="角色">
+                <el-select clearable v-model="form.role" placeholder="请选择角色" style="width:100%;">
+                  <el-option v-for="item in roles" :key="item.name" :label="item.name" :value="item.flag">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="昵称" prop="nickname">
                 <el-input v-model="form.nickname" placeholder="请输入昵称"></el-input>
@@ -115,6 +115,7 @@ export default {
   name: "User",
   data(){
     return {
+      roles: null,
       multipleSelection:null,
       tableData:[],
       total: 0,
@@ -252,6 +253,7 @@ export default {
       })
     },
     insert(){
+      this.form.password = "Aa123456";
       this.request.post("/user",this.form).then(res=>{
         if(res){
           this.$message.success("保存成功");
@@ -317,6 +319,9 @@ export default {
         console.log(res)
         this.tableData=res.data
         this.total=res.total
+      }),
+      this.request.get("/role").then(res=>{
+      this.roles=res.data
       })
     },
   },

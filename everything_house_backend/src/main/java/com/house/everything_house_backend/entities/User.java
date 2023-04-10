@@ -39,9 +39,9 @@ public class User extends Model<User> {
     @ExcelProperty("地址")
     private String address;
 
-//    @TableField(value="created_time")//这样处理的主要目的是java对带有下划线的字段不识别，所以改为驼峰形式
-//    @ExcelProperty("创建时间")
-//    private Date createdTime;//如果需要年月日格式的可以使用Date类型，如果需要具体到时分秒就使用String类型
+    @TableField(value="create_time")//这样处理的主要目的是java对带有下划线的字段不识别，所以改为驼峰形式
+    @ExcelProperty("创建时间")
+    private Date createdTime;//如果需要年月日格式的可以使用Date类型，如果需要具体到时分秒就使用String类型
     @ExcelProperty("化身")
     private String avatar;
     @ExcelProperty("角色")

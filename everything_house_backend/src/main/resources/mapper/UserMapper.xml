@@ -11,6 +11,7 @@
         <result property="phone" column="phone"></result>
         <result property="nickname" column="nickname"></result>
         <result property="address" column="address"></result>
+        <result property="createdTime" column="create_time"></result>
         <result property="avatar" column="avatar"></result>
         <result property="role" column="role"></result>
     </resultMap>
@@ -34,6 +35,19 @@
         </where>
         limit #{pageNumber},#{pageSize}
     </select>
+
+    <select id="selectNumberOfUser" resultType="int">
+        select count(*)
+        from sys_user
+        where role = "ROLE_USER"
+    </select>
+
+    <select id="selectNumberOfAdmin" resultType="int">
+        select count(*)
+        from sys_user
+        where role = "ROLE_ADMIN"
+    </select>
+
     <select id="selectTotalByMultipleCondition" parameterType="map" resultType="Integer">
         select count(*)
         from sys_user

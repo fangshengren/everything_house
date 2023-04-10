@@ -5,7 +5,7 @@
       <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>
-          <div>个人信息</div>
+          <div @click="person">个人信息</div>
         </el-dropdown-item>
         <el-dropdown-item>
           <div class="el-dropdown-item-content" @click="logout">退出</div>
@@ -30,7 +30,10 @@ export default {
       this.$router.push("/login");
       localStorage.removeItem("user");
       this.$message.success("退出成功");
-    }
+    },
+    person(){
+      this.$router.push("/person");
+    },
   },
 }
 </script>
