@@ -20,6 +20,7 @@ html,body{
 
 #home{
     min-height: 100vh;
+    padding-left: 5px;
 }
 
 .nickname_display{
