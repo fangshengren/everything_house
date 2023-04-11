@@ -70,13 +70,6 @@ export default {
     this.load()
   },
   methods: {
-    upload(){
-      this.request.post("/file/upload").then(res => {
-        if (res.code === '200') {
-          this.$message.success("操作成功")
-        }
-      })
-    },
     load() {
       this.request.get("/file/page", {
         params: {
