@@ -77,8 +77,8 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
     }
 
     @Override
-    public boolean save(User entity) {
-        return super.save(entity);
+    public int updateUser(User user) {
+        return userMapper.updateById(user);
     }
 
     public UserDTO login(UserDTO userDTO) {
@@ -96,6 +96,10 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
             //设置token
             String token= TokenUtils.genToken(one.getId().toString(),one.getPassword().toString());
             userDTO.setToken(token);
+            String avatar=one.getAvatar();
+            userDTO.setAvatar(avatar);
+            int id =one.getId();
+            userDTO.setId(id);
             String role=one.getRole();//查询出用户的角色标识，比如ROLE_ADMIN
             //设置用户的菜单列表
             List<Menu> roleMenus=getRoleMenus(role);

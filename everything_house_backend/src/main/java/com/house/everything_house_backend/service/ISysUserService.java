@@ -18,7 +18,7 @@ public interface ISysUserService {
     boolean removeByIds(Long[] ids);
     boolean importUsersFromXlsx(List<User> userList);
 
-    boolean save(User user);
+    int updateUser(User user);
 
     UserDTO login(UserDTO userDTO);
 

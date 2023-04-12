@@ -267,7 +267,7 @@ export default {
 
     update(){
       this.request.put("/user",this.form).then(res=>{
-        if(res){
+        if(res>0){
           this.$message.success("更新成功");
           this.dialogFormVisible=false;
           this.load();

@@ -42,6 +42,7 @@ public class UserController {
                                                           @RequestParam(defaultValue = "10") Integer pageSize,
                                                           User user){
         Map<String, Object> params = new HashMap<>();
+        params.put("id", user.getId());
         params.put("username", user.getUsername());
         params.put("nickname", user.getNickname());
         params.put("phone", user.getPhone());
@@ -71,6 +72,10 @@ public class UserController {
     public int selectNumberOfAdmin(){
         return userMapper.selectNumberOfAdmin();
     }
+    @GetMapping("/{id}")
+    public User selectElementById(@PathVariable int id){
+        return userMapper.selectById(id);
+    }
     @PostMapping
     //这里做了一个单纯的添加的示例，使用的是UserService中的save方法,实现添加和更新
     public Integer insert(@RequestBody User user){
@@ -83,8 +88,8 @@ public class UserController {
     }
     @PutMapping
     //这里做了一个单纯的添加的示例，使用的是UserService中的update方法,实现添加和更新
-    public boolean save(@RequestBody User user){
-        return sysUserService.save(user);
+    public int update(@RequestBody User user){
+        return sysUserService.updateUser(user);
     }
     @DeleteMapping("/{id}")
     public Integer deleteById(@PathVariable Integer id){

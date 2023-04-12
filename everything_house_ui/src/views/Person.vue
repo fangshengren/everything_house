@@ -1,112 +1,145 @@
 <template>
   <div id="home">
-    <el-container>
-      <el-main>
-        <div>个人主页</div>
-        <el-form :model="userInfo" label-width="120px">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="userInfo.username" readonly></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="userInfo.email"></el-input>
-          </el-form-item>
-          <el-form-item label="手机号" prop="phone">
-            <el-input v-model="userInfo.phoneNumber"></el-input>
-          </el-form-item>
-          <el-form-item label="头像">
-            <el-upload
-                class="avatar-uploader"
-                action="your-upload-api-url"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="updateUserInfo">更新信息</el-button>
-          </el-form-item>
-        </el-form>
-      </el-main>
-    </el-container>
+    <el-card style="width: 500px;">
+      <el-form label-width="80px" size="small">
+        <el-upload
+            class="avatar-uploader"
+            :action="'http://localhost:8084/file/upload'"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+        >
+          <img v-if="form.avatar" :src="form.avatar" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+
+        <el-form-item label="用户名">
+          <el-input v-model="form.username" disabled autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickname" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="form.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="form.phone" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-input type="textarea" v-model="form.address" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="update()">确 定</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
 <script>
-import Aside from "@/components/Aside.vue";
-import Header from "@/components/Header.vue";
-
 export default {
   name: "Person",
-  components: {
-    Aside,
-    Header,
-  },
   data() {
     return {
-      userInfo: {
-        username: "",
-        email: "",
-        phoneNumber: "",
+      form: {
+        id: '',
+        avatar: '',
+        username: '',
+        nickname: '',
+        email: '',
+        phone: '',
+        address: ''
       },
-      imageUrl: "",
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
     };
   },
+
   created() {
-    this.loadUserInfo();
-  },
-  methods: {
-    loadUserInfo() {
-      // 请求后端 API 获取用户信息
-      // 假设已经从后端获取到用户信息，存储在 userInfo 中
-      this.userInfo.username = "user123";
-      this.userInfo.email = "user123@example.com";
-      this.userInfo.phoneNumber = "1234567890";
-    },
-    updateUserInfo() {
-      // 更新用户信息，调用后端 API
-      console.log("更新用户信息:", this.userInfo);
-    },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isImage = file.type.includes("image/");
-      if (!isImage) {
-        this.$message.error("上传头像图片格式不正确!");
+    this.getUser().then(res => {
+      //console.log(res);
+      if (res && res.id) {
+        this.form.id = res.id || '';
+        this.form.avatar = res.avatar || '';
+        this.form.username = res.username || '';
+        this.form.nickname = res.nickname || '';
+        this.form.email = res.email || '';
+        this.form.phone = res.phone || '';
+        this.form.address = res.address || '';
       }
-      return isImage;
-    },
+    });
   },
-};
+
+  methods: {
+    handleAvatarSuccess(res) {
+      //console.log(this.form.avatarUrl);
+      //console.log(res);
+      // 检查返回的响应是否是一个URL
+      if (typeof res === 'string' && res.startsWith('http')) {
+        this.form.avatar = res;
+      } else {
+        this.$message.error("头像上传失败");
+      }
+    },
+    async getUser() {
+      //console.log(this.user);
+      //console.log(this.user.id);
+      try {
+        const res = await this.request.get("/user/" + this.user.id);
+        console.log('Response data:', res); // 打印返回的数据
+        if (res && res.id) {
+          return res;
+        } else {
+          // 可以添加错误处理逻辑，例如显示错误消息
+          const errorMsg = res.msg || '未知错误'; // 使用默认错误消息
+          console.error('Error fetching user data:', errorMsg);
+          return {};
+        }
+      } catch (error) {
+        console.error('Error in getUser():', error);
+        return {};
+      }
+    },
+
+    update(){
+      this.request.put("/user",this.form).then(res=>{
+        if(res>0){
+          this.$message.success("更新成功");
+          this.dialogFormVisible=false;
+        }else{
+          this.$message.error("更新失败");
+        }
+      })
+    },
+
+  }
+}
 </script>
 
-<style scoped>
+<style>
+.avatar-uploader {
+  text-align: center;
+  padding-bottom: 10px;
+}
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  width: 150px;
-  height: 150px;
 }
 .avatar-uploader .el-upload:hover {
-  border-color: #409eff;
+  border-color: #409EFF;
 }
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 150px;
-  height: 150px;
-  line-height: 150px;
+  width: 138px;
+  height: 138px;
+  line-height: 138px;
   text-align: center;
 }
 .avatar {
-  width: 150px;
-  height: 150px;
+  width: 138px;
+  height: 138px;
   display: block;
 }
 </style>
