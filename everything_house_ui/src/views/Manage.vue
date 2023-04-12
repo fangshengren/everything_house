@@ -5,8 +5,8 @@
         <Aside></Aside>
       </el-aside>
       <el-container>
-      <el-header style="text-align: right; font-size: 12px; border-bottom: 1px solid red; line-height:60px">
-        <Header name="王小虎测试"/>
+      <el-header>
+        <Header name=""/>
       </el-header>
       <el-main>
         <router-view/>

@@ -1,7 +1,7 @@
 <template>
   <el-menu :default-openeds="opens" style="min-height:100%; overflow-x:hidden"
-           background-color=rgb(48,65,86)
-           text-color=#ccc
+           background-color="#304156"
+           text-color=#fff
            active-text-color=red
            router=""
            :default-active="activeMenu"
@@ -49,9 +49,6 @@ export default {
     }
   },
   methods:{
-    showmst(){
-      console.log(this.opens);
-    },
     updateActiveMenu() {
       this.activeMenu = this.$route.path;
     },

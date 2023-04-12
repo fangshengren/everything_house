@@ -1,6 +1,9 @@
 <template>
   <div style="display: inline-flex; align-items: center;">
-    <span class="nickname_display">{{"Hello!"+user.nickname}}</span>
+    <div style="display: inline-flex; align-items: center;">
+      <img :src="user.avatar" alt="" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" @click="person" class="avatar">
+      <span class="nickname_display">{{"Hello!"+user.nickname}}</span>
+    </div>
     <el-dropdown trigger="click" style="cursor: pointer">
       <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
       <el-dropdown-menu slot="dropdown">
@@ -20,22 +23,22 @@ export default {
   props: {
     name: String,
   },
-  data() {
-    return{
-      user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{}
-    }
+  computed: {
+    user() {
+      return localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
+    },
   },
-  methods:{
-    logout(){
+  methods: {
+    logout() {
       this.$router.push("/login");
       localStorage.removeItem("user");
       this.$message.success("退出成功");
     },
-    person(){
+    person() {
       this.$router.push("/person");
     },
   },
-}
+};
 </script>
 
 <style>

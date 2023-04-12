@@ -13,6 +13,26 @@ html,body{
     active-text-color:#ff0000;
 }
 
+/*background-image: linear-gradient(to bottom, #2b4b6b, #d9d9d9);*/
+
+.el-header {
+    height: 60px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 60px;
+    position: relative;
+}
+
+.el-header::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 5px; /* 您可以根据需要调整底部边框的高度 */
+    background: linear-gradient(to bottom, rgb(235, 235, 235), rgb(255, 255, 255));
+}
+
 .el-container{
     height: 100%;
     border: 1px solid #eee;
@@ -20,7 +40,6 @@ html,body{
 
 #home{
     min-height: 100vh;
-    padding-left: 5px;
 }
 
 .nickname_display{
@@ -60,5 +79,7 @@ html,body{
     height: 100%;
     padding: 0 20px;
 }
+
+
 
 
