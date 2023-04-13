@@ -1,5 +1,8 @@
 <template>
   <div class="login_container">
+    <div class="login_log">
+      <img src="../image/mylog.png" alt="logo" height="100px">
+    </div>
     <div class="login_box">
       <div style="margin:20px 0; text-align:center; font-size:24px"><b>登录</b></div>
       <!-- 用户名-->
@@ -67,21 +70,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.login_container{
-  background-color: #2b4b6b;
-  height: 100%;
-}
-
-.login_box{
-  width: 350px;
-  height: 300px;
-  background-color: #fff;
-  border-radius: 3px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%)
-}
-</style>
