@@ -15,7 +15,7 @@
             <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus"></i></el-button>
             <el-button type="danger" @click="handledelBatch()">批量删除<i class="el-icon-remove"></i></el-button>
             <el-upload
-                action="http://localhost:8084/user/importUsers" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">
+                :action="baseURL()+'/user/importUsers'" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">
               <el-button type="primary" style="margin:10px">导入<i class="el-icon-bottom"></i></el-button>
             </el-upload>
             <el-button type="primary" @click="exp">导出<i class="el-icon-top"></i></el-button>
@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import {baseURL} from "@/utils/request";
+
 export default {
 
   name: "User",
@@ -154,8 +156,11 @@ export default {
     this.load();
   },
   methods: {
+    baseURL() {
+      return baseURL
+    },
     exp(){
-      window.open("http://localhost:8084/user/export");
+      window.open(baseURL+"/user/export");
     },
     handleExcelImportSuccess(){ //实现导入
       this.$message.success("导入成功");
@@ -303,7 +308,7 @@ export default {
     //将请求数据封装为一个方法
     load() {
       //请求分页查询数据
-      //fetch("http://localhost:8084/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"").then(res=>res.json()).then(res=>{
+      //fetch(baseURL+"/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"").then(res=>res.json()).then(res=>{
       //使用axios封装的request
       this.request.get("/user/page2",{
         params:{

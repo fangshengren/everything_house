@@ -31,6 +31,8 @@ public class FileController {
     private String fileUploadPath;
     @Value("${server.port}")
     private String port;
+    @Value("${baseStore.baseUrl}")
+    private String baseUrl;
     @Resource
     private FileMapper fileMapper;
 
@@ -75,7 +77,8 @@ public class FileController {
         }
 
         // 如果 MD5 不存在，则上传文件并插入数据库
-        url = "http://localhost:" + port + "/file/" + fileUUID;
+        //url是用来去请求get的
+        url = baseUrl + port + "/file/" + fileUUID;
         saveFileInfo(originalFileName, type, size, url, md5);
         return url;
 

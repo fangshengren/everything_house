@@ -1,5 +1,6 @@
 server:
   port: 8084
+
 spring:
   datasource:
     username: root
@@ -25,3 +26,6 @@ mybatis-plus:
 files:
   upload:
     path: C:/Users/wyq/Desktop/springboot学习/my_own_project/everything_house_ui/src/image/
+
+baseStore:
+  baseUrl: http://localhost:8084

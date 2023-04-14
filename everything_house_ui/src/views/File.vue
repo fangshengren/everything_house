@@ -52,11 +52,13 @@
 </template>
 
 <script>
+import {baseURL} from "@/utils/request";
+
 export default {
   name: "File",
   data() {
     return {
-      uploadUrl: "http://localhost:8084/file/upload",
+      uploadUrl: baseURL+"/file/upload",
       tableData: [],
       name: '',
       multipleSelection: [],

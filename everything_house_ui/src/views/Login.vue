@@ -1,7 +1,7 @@
 <template>
   <div class="login_container">
     <div class="login_log">
-      <img src="../image/mylog.png" alt="logo" height="100px">
+      <img src="../image/mylog.png" alt="logo" height="150px">
     </div>
     <div class="login_box">
       <div style="margin:20px 0; text-align:center; font-size:24px"><b>登录</b></div>

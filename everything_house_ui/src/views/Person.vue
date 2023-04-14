@@ -4,7 +4,7 @@
       <el-form label-width="80px" size="small">
         <el-upload
             class="avatar-uploader"
-            :action="'http://localhost:8084/file/upload'"
+            :action="baseURL()+'/file/upload'"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
         >
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import {baseURL} from "@/utils/request";
+
 export default {
   name: "Person",
   data() {
@@ -69,6 +71,9 @@ export default {
   },
 
   methods: {
+    baseURL() {
+      return baseURL
+    },
     handleAvatarSuccess(res) {
       //console.log(this.form.avatarUrl);
       //console.log(res);
