@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <div style="margin: 10px 0px">
+    <div style="margin: 10px 10px">
       <el-input style="width: 200px;margin-right:10px" placeholder="请输入名称" suffix-icon="el-icon-search" v-model="name"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button type="warning" @click="reset">重置</el-button>
@@ -9,7 +9,7 @@
       <el-upload :action="uploadUrl" :show-file-list="false" :on-success="handleFileUploadSuccess"
                  :on-error="handleFileUploadError"
                  style="display: inline-block">
-        <el-button type="primary" class="ml-5" style="margin-right:10px">上传文件 <i class="el-icon-top"></i></el-button>
+        <el-button type="primary" class="ml-5" style="margin:0px 10px">上传文件 <i class="el-icon-top"></i></el-button>
       </el-upload>
       <el-button type="danger" slot="reference" @click="handledelBatch()">批量删除 <i class="el-icon-remove-outline"></i></el-button>
     </div>

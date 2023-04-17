@@ -1,12 +1,12 @@
 <template>
-  <el-menu :default-openeds="opens" style="min-height:100%; overflow-x:hidden"
+  <el-menu :default-openeds="opens" style="min-height:100%; overflow-x:hidden; width: 13.5vw"
            background-color="#304156"
            text-color=#fff
            active-text-color=red
            router=""
            :default-active="activeMenu"
   >
-    <div style="height:60px; line-height:60px; text-align:center">
+    <div style="height:60px; line-height:60px;margin-left:2.5vw">
       <img src="../assets/logo.png" style="width:20px;position:relative;top:5px;margin-right:5px"/>
       <b style="color:white">WYQ Project</b>
     </div>

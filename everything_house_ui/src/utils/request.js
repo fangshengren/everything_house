@@ -13,12 +13,15 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-    let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{}//获取登录时存放的user对象信息
+    let user=localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):{} //获取登录时存放的user对象信息
+    //console.log('User object:', user); // 打印user对象，查看是否包含正确的token
     config.headers['token'] = user.token;  // 设置请求头
     return config
 }, error => {
     return Promise.reject(error)
 });
+
+
 
 // response 拦截器
 // 可以在接口响应后统一处理结果

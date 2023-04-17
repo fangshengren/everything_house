@@ -27,6 +27,9 @@ export default {
     user() {
       return localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
     },
+    avatar() {
+      return localStorage.getItem("avatar") || this.user.avatar;
+    },
   },
   methods: {
     logout() {
@@ -37,6 +40,14 @@ export default {
     person() {
       this.$router.push("/person");
     },
+  },
+  watch: {
+    user: {
+      handler(val) {
+        this.$forceUpdate();
+      },
+      deep: true
+    }
   },
 };
 </script>

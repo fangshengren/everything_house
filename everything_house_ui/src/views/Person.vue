@@ -80,6 +80,7 @@ export default {
       // 检查返回的响应是否是一个URL
       if (typeof res === 'string' && res.startsWith('http')) {
         this.form.avatar = res;
+        this.$message.success("头像上传成功");
       } else {
         this.$message.error("头像上传失败");
       }
@@ -104,16 +105,34 @@ export default {
       }
     },
 
-    update(){
-      this.request.put("/user",this.form).then(res=>{
-        if(res>0){
+    update() {
+      this.request.put("/user", this.form).then((res) => {
+        if (res > 0) {
           this.$message.success("更新成功");
-          this.dialogFormVisible=false;
-        }else{
+          this.dialogFormVisible = false;
+
+          // 获取本地存储中的 user 对象
+          let user = JSON.parse(localStorage.getItem("user"));
+
+          // 仅更新需要更新的属性
+          user.avatar = this.form.avatar;
+          user.username = this.form.username;
+          user.nickname = this.form.nickname;
+          user.email = this.form.email;
+          user.phone = this.form.phone;
+          user.address = this.form.address;
+
+          // 将更新后的 user 对象存回本地存储
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // 刷新页面
+          window.location.reload();
+        } else {
           this.$message.error("更新失败");
         }
-      })
+      });
     },
+
 
   }
 }

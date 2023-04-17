@@ -23,6 +23,10 @@ html,body{
     position: relative;
 }
 
+/*.el-table {*/
+/*    margin-left: 0.1vw;*/
+/*}*/
+
 .el-header::after{
     content: '';
     position: absolute;
@@ -51,6 +55,7 @@ html,body{
 .el-main{
     padding: 0;
     text-align: left;
+    width: 85vw;
 }
 
 /*Login样式开始*/
