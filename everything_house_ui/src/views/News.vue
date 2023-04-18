@@ -3,10 +3,9 @@
     <h1>新闻列表</h1>
     <el-form :inline="true" class="search-form">
       <el-form-item label="标题关键词">
-        <el-input v-model="searchTitle" placeholder="请输入关键词"></el-input>
+        <el-input v-model="searchTitle" placeholder="请输入关键词" @input="search"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="search">搜索</el-button>
         <el-button type="primary" @click="getNews">获取新浪最新十条新闻</el-button>
         <el-button type="primary" @click="delTopTen">删除前十条新闻纪录</el-button>
         <el-button type="primary" @click="delAll">删除全部纪录</el-button>
@@ -33,7 +32,7 @@
 
 <script>
 import request from '@/utils/request';
-import dealSqlConfirm from '@/utils/dealSqlConfirm';
+import dealSqlConfirm from '@/utils/dealSql';
 
 export default {
   name: "News",
@@ -52,23 +51,32 @@ export default {
     this.search();
   },
   methods: {
+    // 在你的组件中，修改getNews()方法
     async getNews() {
+      let loadingInstance;
       try {
+        // 显示加载中
+        loadingInstance = this.toggleLoading(true);
         const res = await request.get("/news");
-        //console.log(res);
         if (res.length > 0) {
           this.newsList = res;
-          //console.log(typeof this.newsList)
           const res2 = await request.post("/news", JSON.stringify(this.newsList), {
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" },
           });
-          //console.log(res2);
           await this.search();
         }
+        // 关闭加载中
+        this.toggleLoading(false);
       } catch (error) {
-        console.error('Error in getNews():', error);
+        console.error("Error in getNews():", error);
+        // 如果出现错误，也要关闭加载中
+        this.toggleLoading(false);
+      } finally {
+        // 确保在任何情况下都关闭加载中
+        loadingInstance && loadingInstance.close();
       }
     },
+
     async search() {
       try {
         const res = await request.get("/news/page", {

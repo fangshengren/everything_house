@@ -32,7 +32,7 @@ public class NewsController {
                            @RequestParam(defaultValue = "") String title){
         QueryWrapper<News> queryWrapper=new QueryWrapper<>();
         queryWrapper.like("title",title);
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByAsc("id");
         return Result.success(newsService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
