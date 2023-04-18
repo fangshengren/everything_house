@@ -13,6 +13,7 @@ public class News {
     private Integer id;
     private String title;
     private String content;
+    private String url;
     @TableField(value = "create_time")
     private String createTime;
 }

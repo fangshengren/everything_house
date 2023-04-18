@@ -6,10 +6,9 @@ import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.entities.Menu;
 import com.house.everything_house_backend.mapper.DictMapper;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.house.everything_house_backend.service.iml.MenuService;
+import com.house.everything_house_backend.service.impl.MenuService;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.house.everything_house_backend.common.Constants;
 import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.exception.ServiceException;
-import com.house.everything_house_backend.service.iml.SysUserService;
+import com.house.everything_house_backend.service.impl.SysUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

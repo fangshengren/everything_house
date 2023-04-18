@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.entities.News;
-import com.house.everything_house_backend.entities.Role;
 import com.house.everything_house_backend.service.INewsService;
-import com.house.everything_house_backend.service.iml.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/news")
@@ -35,6 +34,40 @@ public class NewsController {
         queryWrapper.like("title",title);
         queryWrapper.orderByDesc("id");
         return Result.success(newsService.page(new Page<>(pageNum,pageSize),queryWrapper));
+    }
+
+    @GetMapping("")
+    public List<News> getNews() {
+        try {
+            return newsService.getNews();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    @DeleteMapping("/del/batch")
+    public Result deleteByIds(@RequestBody List<Integer> ids){
+        newsService.removeByIds(ids);
+        return Result.success();
+    }
+
+    @DeleteMapping("/delTopTen")
+    public Result deleteTopTen(){
+        newsService.deleteTopTen();
+        return Result.success();
+    }
+
+    @DeleteMapping("/delAll")
+    public Result deleteAll(){
+        newsService.deleteAll();
+        return Result.success();
+    }
+
+    @PostMapping
+    public Result save(@RequestBody List<News> newsList) {
+        System.out.println("Received newsList size: " + newsList.size());
+        newsService.saveBatch(newsList);
+        return Result.success();
     }
 
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.entities.Role;
-import com.house.everything_house_backend.service.iml.RoleService;
+import com.house.everything_house_backend.service.impl.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

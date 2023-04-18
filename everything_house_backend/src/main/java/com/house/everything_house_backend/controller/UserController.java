@@ -1,7 +1,6 @@
 package com.house.everything_house_backend.controller;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.excel.EasyExcel;
@@ -12,7 +11,6 @@ import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.listener.UserExcelListener;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
-import com.house.everything_house_backend.service.iml.SysUserService;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
