@@ -81,7 +81,7 @@ public class NewsService extends ServiceImpl<NewsMapper, News> implements INewsS
             //news.setId(id);
             news.setTitle(title);
             news.setUrl(url);
-            //news.setImageUrl(imageUrl);
+            news.setImgUrl(imageUrl);
             news.setContent(summary);
             news.setCreateTime(String.valueOf(time));
             newsList.add(news);

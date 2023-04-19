@@ -14,6 +14,8 @@ public class News {
     private String title;
     private String content;
     private String url;
+    @TableField(value = "imgUrl")
+    private String imgUrl;
     @TableField(value = "create_time")
     private String createTime;
 }

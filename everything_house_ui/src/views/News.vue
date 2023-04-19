@@ -12,6 +12,13 @@
       </el-form-item>
     </el-form>
     <el-table :data="newsList" border>
+      <el-table-column label="图片" prop="img">
+        <template slot-scope="scope">
+          <div class="news-img">
+            <img :src="scope.row.imgUrl" alt="图片加载异常" >
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="标题" prop="title"></el-table-column>
       <el-table-column label="链接" prop="url">
         <template slot-scope="scope">

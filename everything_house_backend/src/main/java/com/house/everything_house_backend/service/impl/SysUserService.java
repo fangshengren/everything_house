@@ -54,6 +54,10 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
         return userMapper.insertUser(user);
     }
     @Override
+    public int selectNumberOfUserName(String queryUserName){
+        return userMapper.selectAllByUsername(queryUserName);
+    }
+    @Override
     public boolean importUsersFromXlsx(List<User> userList) {
         return saveBatch(userList);
     }

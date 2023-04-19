@@ -14,6 +14,7 @@ import com.house.everything_house_backend.service.ISysUserService;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/user")
@@ -31,6 +33,8 @@ public class UserController {
     private UserMapper userMapper;
     @Autowired
     private ISysUserService sysUserService;
+    @Value("${export.exportUrl}")
+    private String exportUrl;
     //分页查询
     //接口路径user/page?pageNum=1&pageSize=10
     //RequestParam接受前台传过来的第几页，每页显示数
@@ -100,7 +104,7 @@ public class UserController {
         //从数据库查询出所有数据,如果需要获取其他的数据，就调用其他的方法
         List<User> list=userMapper.findAll();
         //通过工具类创建write 写出磁盘路径
-        ExcelWriter writer= ExcelUtil.getWriter("D:/用户信息.xlsx");
+        ExcelWriter writer= ExcelUtil.getWriter(exportUrl);
         //这里的参数也可以设置绝对路径，本项目实现网页的下载，省略下载路径
         //ExcelWriter writer= ExcelUtil.getWriter(true);
         writer.addHeaderAlias("username","用户名");//用别名的方法，实现Excel文件的标题是中文的
@@ -147,6 +151,47 @@ public class UserController {
         }
         UserDTO dto=sysUserService.login(userDTO);
         return Result.success(dto);
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody UserDTO userDTO){
+        String username=userDTO.getUsername();
+        String password=userDTO.getPassword();
+        int x=sysUserService.selectNumberOfUserName(username);
+        System.out.println(x);
+        if(x>0){
+            return Result.error("500","用户名已存在，注册失败");
+        }
+        else if(x==0){
+            if(password.length()<8||password.length()>20){
+                return Result.error("500","密码长度不符合要求，请更改您的密码");
+            }
+            if(username.length()<5||username.length()>20){
+                return Result.error("500","用户名长度不符合要求，请更改您的用户名");
+            }
+            String regex1="[\\s]";
+            String regex2="[\u4e00-\u9fa5]";
+            Pattern pattern1 = Pattern.compile(regex1);
+            Pattern pattern2 = Pattern.compile(regex2);
+            if(pattern1.matcher(username).find()){
+                return Result.error("500","用户名中含有空格，请更改您的用户名");
+            }
+            if(pattern1.matcher(password).find()){
+                return Result.error("500","密码中含有空格，请更改您的密码");
+            }
+            if(pattern2.matcher(password).find()){
+                return Result.error("500","密码中含有中文，请更改您的密码");
+            }
+            User user = new User();
+            user.setUsername(userDTO.getUsername());
+            user.setPassword(userDTO.getPassword());
+            user.setRole("ROLE_USER");
+            sysUserService.insert(user);
+            return Result.success("注册成功");
+        }
+        else{
+            return Result.error();
+        }
     }
 
 }

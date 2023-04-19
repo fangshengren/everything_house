@@ -68,10 +68,11 @@ html,body{
 
 .login_log{
     position: absolute;
-    top: calc(25%);
-    left: 50%;
-    transform: translate(-50%, -100%);
-    text-align: center;
+    top: 10vh;
+    left: 40vw;
+    /*transform: translate(-50%, -100%);*/
+    background-size: contain; /* 将背景图片缩放以适应容器大小 */
+    /*text-align: center;*/
 }
 
 .login_box{
@@ -80,9 +81,10 @@ html,body{
     background-color: #fff;
     border-radius: 3px;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    padding: 0 20px;
+    left: 41vw;
+    top: 30vh;
+    /*transform: translate(-50%, -50%);*/
 }
 /*Login样式结束*/
 
@@ -97,6 +99,90 @@ html,body{
     padding: 0 20px;
 }
 
+/*News.vue*/
+.news-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.news-img img{
+    height:87px;
+    width:130px;
+}
+
+/*Register.vue*/
+.register-container{
+    position:relative;
+}
+.register-logo{
+    position: absolute;
+    top: 10%; /* 根据需要调整位置 */
+    left:5vw; /* 根据需要调整位置 */
+    width: 250px; /* 设置Logo宽度 */
+    height: 250px; /* 设置Logo高度 */
+    background-image: url('../image/mylog.png'); /* 替换为您的Logo图片路径 */
+    background-size: contain; /* 将背景图片缩放以适应容器大小 */
+    background-position: center; /* 将背景图片居中对齐 */
+    background-repeat: no-repeat; /* 防止背景图片重复 */
+    z-index: 1; /* 将Logo置于背景图片之上 */
+}
+.register-view{
+    position: absolute;
+    right: 15vw;
+    top: 35vh;
+    z-index: 1;
+}
+.register-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('../image/注册页面背景.jpg'); /* 替换为您的背景图片路径 */
+    /*background-size: cover; !* 将背景图片缩放以覆盖整个容器 *!*/
+    background-position: center; /* 将背景图片居中对齐 */
+    background-repeat: no-repeat; /* 防止背景图片重复 */
+    z-index: -1; /* 将背景图片置于其他元素之下 */
+}
+
+.register-card {
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* 将背景图片置于其他元素之下 */
+}
+.register-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.password-strength {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 8px;
+}
+.strength-bar {
+    width: 20%;
+    height: 5px;
+    background-color: #ebeef5;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+.strength-weak {
+    background-color: #f56c6c;
+}
+.strength-medium {
+    background-color: #e6a23c;
+}
+.strength-strong {
+    background-color: #67c23a;
+}
+.el-tooltip__popper {
+    font-size: 14px;
+    white-space: pre-wrap;
+}
 
 

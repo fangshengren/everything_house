@@ -17,6 +17,10 @@
         <div style="margin:10px 0; text-align:center">
           <el-button type="primary" size="small" @click="login" >登录</el-button>
           <el-button type="warning" size="small" @click="resetLoginForm">重置</el-button>
+          <br>
+          <div style="text-align:right;padding-right: 20px;">
+            <span style="color: #409EFF; text-decoration: underline; cursor: pointer; " @click="register">注册用户</span>
+          </div>
         </div>
       </el-form>
     </div>
@@ -66,6 +70,9 @@ export default {
     },
     resetLoginForm(){
       this.$refs.LoginFormRef.resetFields()
+    },
+    register(){
+      this.$router.push("/register");
     }
   }
 }

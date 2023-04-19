@@ -27,4 +27,6 @@ public interface UserMapper extends BaseMapper<User> {
     int deleteById(@Param("id") Integer id);
 
     boolean removeByIds(Long[] ids);
+
+    int selectAllByUsername(String queryUserName);
 }

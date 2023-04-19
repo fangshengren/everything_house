@@ -25,4 +25,7 @@ public interface ISysUserService {
     int selectNumberOfUser();
 
     int selectNumberOfAdmin();
+
+    public int selectNumberOfUserName(String queryUserName);
+
 }
