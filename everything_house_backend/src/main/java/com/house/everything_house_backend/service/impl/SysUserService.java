@@ -12,6 +12,7 @@ import com.house.everything_house_backend.mapper.RoleMapper;
 import com.house.everything_house_backend.mapper.RoleMenuMapper;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
+import com.house.everything_house_backend.utils.MD5Util;
 import com.house.everything_house_backend.utils.TokenUtils;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,13 +83,15 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
 
     @Override
     public int updateUser(User user) {
+        String salt = MD5Util.generateSalt(8);
+        String hashedPassword = MD5Util.getMD5(user.getPassword()+salt);
+        user.setPassword(hashedPassword);
         return userMapper.updateById(user);
     }
 
     public UserDTO login(UserDTO userDTO) {
-        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("username",userDTO.getUsername());
-        queryWrapper.eq("password",userDTO.getPassword());
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userDTO.getUsername());
         User one;
         try{
             one=getOne(queryWrapper);
@@ -96,6 +99,13 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
             throw new ServiceException(Constants.CODE_500,"系统错误");//这里假设查询了多于1条记录，就让他报系统错误
         }
         if(one!=null){  //以下是登录判断业务
+            // 使用用户输入的密码和数据库中存储的盐值进行哈希计算
+            String saltedHashedPassword = MD5Util.getMD5(userDTO.getPassword() + one.getSalt());
+            System.out.println(saltedHashedPassword);System.out.println(one.getPassword());
+            // 将计算出的哈希值与数据库中存储的哈希密码进行比较
+            if (!saltedHashedPassword.equals(one.getPassword())) {
+                throw new ServiceException(Constants.CODE_600, "用户名或密码错误");
+            }
             BeanUtil.copyProperties(one,userDTO,true);
             //设置token
             String token= TokenUtils.genToken(one.getId().toString(),one.getPassword().toString());

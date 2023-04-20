@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div id="home">
         <el-main>
           <div style="padding:10px">
-            <el-input style="width:15%" suffix-icon="el-icon-search" placeholder="请输入名称搜索" v-model="username"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入邮箱搜索" v-model="email"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入电话搜索" v-model="phone"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入昵称搜索" v-model="nickname"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-position" placeholder="请输入地址搜索" v-model="address"></el-input>
-            <el-button style="margin-left:5px" type="primary" @click="load">搜索</el-button>
+            <el-input style="width:15%" suffix-icon="el-icon-search" placeholder="请输入名称搜索" v-model="username" @input="load"></el-input>
+            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入邮箱搜索" v-model="email" @input="load"></el-input>
+            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入电话搜索" v-model="phone" @input="load"></el-input>
+            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入昵称搜索" v-model="nickname" @input="load"></el-input>
+            <el-input style="width:15%" suffix-icon="el-icon-position" placeholder="请输入地址搜索" v-model="address" @input="load"></el-input>
+            <!--<el-button style="margin-left:5px" type="primary" @click="load">搜索</el-button>-->
             <el-button style="margin-left:5px" type="warning" @click="reset">重置</el-button>
           </div>
 

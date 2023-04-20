@@ -104,6 +104,7 @@ html,body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: cover;
 }
 
 .news-img img{
@@ -140,7 +141,7 @@ html,body{
     top: 0;
     left: 0;
     background-image: url('../image/注册页面背景.jpg'); /* 替换为您的背景图片路径 */
-    /*background-size: cover; !* 将背景图片缩放以覆盖整个容器 *!*/
+    background-size: cover; /* 将背景图片缩放以覆盖整个容器 */
     background-position: center; /* 将背景图片居中对齐 */
     background-repeat: no-repeat; /* 防止背景图片重复 */
     z-index: -1; /* 将背景图片置于其他元素之下 */

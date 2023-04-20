@@ -11,6 +11,7 @@ import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.listener.UserExcelListener;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
+import com.house.everything_house_backend.utils.MD5Util;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,9 +183,12 @@ public class UserController {
             if(pattern2.matcher(password).find()){
                 return Result.error("500","密码中含有中文，请更改您的密码");
             }
+            String salt = MD5Util.generateSalt(8);
+            String hashedPassword = MD5Util.getMD5(userDTO.getPassword()+salt);
             User user = new User();
+            user.setSalt(salt);
             user.setUsername(userDTO.getUsername());
-            user.setPassword(userDTO.getPassword());
+            user.setPassword(hashedPassword);
             user.setRole("ROLE_USER");
             sysUserService.insert(user);
             return Result.success("注册成功");

@@ -46,4 +46,6 @@ public class User extends Model<User> {
     private String avatar;
     @ExcelProperty("角色")
     private String role;
+    @ExcelProperty("盐")
+    private String salt;
 }
