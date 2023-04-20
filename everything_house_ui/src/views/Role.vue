@@ -1,11 +1,11 @@
 <template>
-  <div id="home">
-    <div style="padding:10px">
+  <div id="website">
+    <div style="padding:10px" class="input-container">
       <el-input style="width:250px" suffix-icon="el-icon-search" placeholder="请输入名称搜索" v-model="name"></el-input>
       <el-button style="margin-left:5px" type="primary" @click="load">搜索</el-button>
       <el-button style="margin-left:5px" type="warning" @click="reset">重置</el-button>
     </div>
-    <div style="margin:10px">
+    <div style="margin:10px" class="button-container">
       <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus"></i></el-button>
       <el-button type="danger" @click="delBatch">批量删除<i class="el-icon-remove"></i></el-button>
     </div>

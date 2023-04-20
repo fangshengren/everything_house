@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="website">
     <el-card style="width: 500px;">
       <el-form label-width="80px" size="small">
         <el-upload
@@ -8,7 +8,7 @@
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
         >
-          <img v-if="form.avatar" :src="form.avatar" class="avatar">
+          <img v-if="form.avatar" :src="form.avatar" class="person-avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
 
@@ -161,7 +161,7 @@ export default {
   line-height: 138px;
   text-align: center;
 }
-.avatar {
+.person-avatar {
   width: 138px;
   height: 138px;
   display: block;

@@ -1,17 +1,17 @@
 <template>
-    <div id="home">
+    <div id="website">
         <el-main>
-          <div style="padding:10px">
-            <el-input style="width:15%" suffix-icon="el-icon-search" placeholder="请输入名称搜索" v-model="username" @input="load"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入邮箱搜索" v-model="email" @input="load"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入电话搜索" v-model="phone" @input="load"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-email" placeholder="请输入昵称搜索" v-model="nickname" @input="load"></el-input>
-            <el-input style="width:15%" suffix-icon="el-icon-position" placeholder="请输入地址搜索" v-model="address" @input="load"></el-input>
+          <div style="padding:10px" class="input-container">
+            <el-input style="width:150px;margin-right:5px" suffix-icon="el-icon-search" placeholder="请输入名称搜索" v-model="username" @input="load"></el-input>
+            <el-input style="width:150px;margin-right:5px" suffix-icon="el-icon-email" placeholder="请输入邮箱搜索" v-model="email" @input="load"></el-input>
+            <el-input style="width:150px;margin-right:5px" suffix-icon="el-icon-email" placeholder="请输入电话搜索" v-model="phone" @input="load"></el-input>
+            <el-input style="width:150px;margin-right:5px" suffix-icon="el-icon-email" placeholder="请输入昵称搜索" v-model="nickname" @input="load"></el-input>
+            <el-input style="width:150px;margin-right:5px" suffix-icon="el-icon-position" placeholder="请输入地址搜索" v-model="address" @input="load"></el-input>
             <!--<el-button style="margin-left:5px" type="primary" @click="load">搜索</el-button>-->
             <el-button style="margin-left:5px" type="warning" @click="reset">重置</el-button>
           </div>
 
-          <div style="margin:10px">
+          <div style="margin:10px" class="button-container">
             <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus"></i></el-button>
             <el-button type="danger" @click="handledelBatch()">批量删除<i class="el-icon-remove"></i></el-button>
             <el-upload
@@ -57,7 +57,7 @@
                 prop="address"
                 label="地址">
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="240">
+            <el-table-column  label="操作" width="240">
               <template slot-scope="scope">
                 <el-button type="success" size="small" icon="el-icon-edit" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button type="danger" size="small"  icon="el-icon-delete" @click="handleConfirmDelete(scope.row)">删除</el-button>

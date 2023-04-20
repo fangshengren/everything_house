@@ -1,11 +1,11 @@
 <template>
-  <div id="home">
-    <div style="margin: 10px 10px">
+  <div id="website">
+    <div style="margin: 10px 10px" class="input-container">
       <el-input style="width: 200px;margin-right:10px" placeholder="请输入名称" suffix-icon="el-icon-search" v-model="name"></el-input>
       <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
       <el-button type="warning" @click="reset">重置</el-button>
     </div>
-    <div style="margin: 10px 0px">
+    <div style="margin: 10px 0px" class="button-container">
       <el-upload :action="uploadUrl" :show-file-list="false" :on-success="handleFileUploadSuccess"
                  :on-error="handleFileUploadError"
                  style="display: inline-block">

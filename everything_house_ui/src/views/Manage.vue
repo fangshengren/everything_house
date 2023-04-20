@@ -1,10 +1,10 @@
 <template>
-  <div id="home">
+  <div id="website">
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <Aside></Aside>
       </el-aside>
-      <el-container>
+      <el-container style="width: calc(100% - 200px);">
       <el-header>
         <Header name=""/>
       </el-header>

@@ -1,7 +1,7 @@
 <template>
   <div style="display: inline-flex; align-items: center;">
     <div style="display: inline-flex; align-items: center;">
-      <img :src="user.avatar" alt="" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" @click="person" class="avatar">
+      <img :src="user.avatar" alt="" class="el-header-image" @click="person">
       <span class="nickname_display">{{"Hello!"+user.nickname}}</span>
     </div>
     <el-dropdown trigger="click" style="cursor: pointer">
@@ -51,7 +51,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

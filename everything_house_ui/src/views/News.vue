@@ -1,14 +1,16 @@
 <template>
-  <div class="news">
+  <div class="news" id="website">
     <h1>新闻列表</h1>
-    <el-form :inline="true" class="search-form">
+    <el-form :inline="true" class="news-search-form">
       <el-form-item label="标题关键词">
         <el-input v-model="searchTitle" placeholder="请输入关键词" @input="search"></el-input>
       </el-form-item>
       <el-form-item>
+        <div class="button-container">
         <el-button type="primary" @click="getNews">获取新浪最新十条新闻</el-button>
         <el-button type="primary" @click="delTopTen">删除前十条新闻纪录</el-button>
         <el-button type="primary" @click="delAll">删除全部纪录</el-button>
+        </div>
       </el-form-item>
     </el-form>
     <el-table :data="newsList" border>
@@ -76,6 +78,7 @@ export default {
         this.toggleLoading(false);
       } catch (error) {
         console.error("Error in getNews():", error);
+        this.$message.error("可能是网络问题，请检查网络连接是否正常");
         // 如果出现错误，也要关闭加载中
         this.toggleLoading(false);
       } finally {
@@ -137,16 +140,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.news {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-.search-form {
-  margin-bottom: 20px;
-}
-</style>

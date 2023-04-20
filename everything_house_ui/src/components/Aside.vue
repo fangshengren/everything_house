@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-openeds="opens" style="min-height:100%; overflow-x:hidden; width: 13.5vw"
+  <el-menu :default-openeds="opens" style="min-height:100%; overflow-x:hidden;"
            background-color="#304156"
            text-color=#fff
            active-text-color=red
