@@ -5,6 +5,7 @@
 
 html,body{
     height: 100%;
+    /*font-size: ;待定*/
 }
 
 .el-menu {
@@ -16,10 +17,10 @@ html,body{
 /*background-image: linear-gradient(to bottom, #2b4b6b, #d9d9d9);*/
 
 .el-header {
-    height: 60px;
+    height: 10vh;
     text-align: right;
     font-size: 12px;
-    line-height: 60px;
+    line-height: 8vh;
     position: relative;
 }
 
@@ -61,18 +62,21 @@ html,body{
 /*Login样式开始*/
 .login_container{
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    width: 100%;
     height: 100%;
     min-height: 100vh;
+    min-width: 100vw;
 }
 
 .login_log{
-    position: absolute;
-    top: 10vh;
-    left: 40vw;
-    /*transform: translate(-50%, -100%);*/
-    background-size: contain; /* 将背景图片缩放以适应容器大小 */
-    /*text-align: center;*/
+    position: relative;
+    margin-bottom: 10px; /* 调整此值以更改logo和登录框之间的间距 */
+    background-size: contain;
 }
 
 .login_box{
@@ -80,11 +84,8 @@ html,body{
     height: 300px;
     background-color: #fff;
     border-radius: 3px;
-    position: absolute;
-    padding: 0 20px;
-    left: 41vw;
-    top: 30vh;
-    /*transform: translate(-50%, -50%);*/
+    position: relative;
+    padding: 0 15px;
 }
 /*Login样式结束*/
 
