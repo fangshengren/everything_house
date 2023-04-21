@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page" id="website">
+  <div class="home-page">
     <div class="project-overview">
       <h2 class="home-h2">项目概要</h2>
       <p>

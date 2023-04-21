@@ -52,10 +52,11 @@ html,body{
     width: 100%;
 }
 
-#website{
-    min-height: 100vh;
-
+#website {
+    /*减去header的和header::after的高度*/
+    min-height: calc(100vh - 60px - 5px);
 }
+
 
 .nickname_display{
     font-size: 16px;
@@ -233,7 +234,8 @@ html,body{
 .home-page {
     margin: 0 auto;
     padding: 2rem 1rem;
-    min-height: 83vh;
+    /*减去(header + header::after + 上下padding)的高度*/
+    min-height: calc(100vh - 60px - 5px - 4rem);
     width: calc(100% - 2rem);
     min-width: 900px;
     overflow-x: auto;
