@@ -10,6 +10,7 @@
       <el-button type="danger" @click="delBatch">批量删除<i class="el-icon-remove"></i></el-button>
     </div>
     <el-table :data="tableData"  row-key="id"
+              style="width: 100%; min-width: 1200px; overflow-x: auto;"
               border default-expand-all @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID " width="80">

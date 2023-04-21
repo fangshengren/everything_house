@@ -67,7 +67,7 @@ html,body{
     flex: 1; /* 使主内容区自动填充剩余空间 */
     padding: 0;
     text-align: left;
-    width: calc(100% - 50px);
+    width: calc(100% - 10px);
     /*width: 100%;*/
     margin: 0 auto;
 }
@@ -92,6 +92,9 @@ html,body{
 .input-container{
     display: flex;
     flex-wrap: nowrap; /* 确保不换行 */
+}
+.el-input{
+    min-width: 150px;
 }
 /*按钮通用*/
 .button-container {
@@ -229,8 +232,11 @@ html,body{
 /*Home.vue样式开始*/
 .home-page {
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 1rem;
     min-height: 83vh;
+    width: calc(100% - 2rem);
+    min-width: 900px;
+    overflow-x: auto;
 }
 
 .home-h2 {

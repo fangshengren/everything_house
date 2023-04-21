@@ -1,16 +1,13 @@
 <template>
   <div id="website" style="display: flex">
     <el-row>
-      <div>
-        <el-col :span="12">
-          <div id="main" style="width:500px; height:400px"></div>
-        </el-col>
-      </div>
-      <div style="margin-left: 100px">
-      <el-col :span="12">
-        <div id="pie" style="width:500px; height:400px;"></div>
+      <el-col :span="12" :xs="24" :sm="12">
+        <div id="main" style="width: 500px; height: 400px"></div>
       </el-col>
-      </div>
+
+      <el-col :span="12" :xs="24" :sm="12">
+        <div id="pie" style="width: 500px; height: 400px;"></div>
+      </el-col>
     </el-row>
   </div>
 </template>

@@ -1,5 +1,4 @@
 <template>
-  <div id="website">
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <Aside></Aside>
@@ -13,7 +12,6 @@
       </el-main>
       </el-container>
     </el-container>
-  </div>
 </template>
 <script>
 import Aside from '@/components/Aside.vue'

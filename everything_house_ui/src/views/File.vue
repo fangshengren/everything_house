@@ -13,7 +13,8 @@
       </el-upload>
       <el-button type="danger" slot="reference" @click="handledelBatch()">批量删除 <i class="el-icon-remove-outline"></i></el-button>
     </div>
-    <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'"  @selection-change="handleSelectionChange">
+    <el-table :data="tableData"style="width: 100%; min-width: 1200px; overflow-x: auto;"
+              border stripe :header-cell-class-name="'headerBg'"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="80"></el-table-column>
       <el-table-column prop="name" label="文件名称"></el-table-column>

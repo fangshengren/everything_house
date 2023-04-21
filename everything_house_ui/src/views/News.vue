@@ -13,7 +13,9 @@
         </div>
       </el-form-item>
     </el-form>
-    <el-table :data="newsList" border>
+    <el-table :data="newsList"
+              style="width: 100%; min-width: 1200px; overflow-x: auto;"
+              border>
       <el-table-column label="图片" prop="img">
         <template slot-scope="scope">
           <div class="news-img">
@@ -76,6 +78,7 @@ export default {
         }
         // 关闭加载中
         this.toggleLoading(false);
+        this.$message.success("加载成功");
       } catch (error) {
         console.error("Error in getNews():", error);
         this.$message.error("可能是网络问题，请检查网络连接是否正常");
