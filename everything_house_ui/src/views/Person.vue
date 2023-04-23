@@ -28,7 +28,7 @@
           <el-input type="textarea" v-model="form.address" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="update()">确 定</el-button>
+          <el-button type="primary" @click="update()">确 定 更 改</el-button>
         </el-form-item>
       </el-form>
     </el-card>

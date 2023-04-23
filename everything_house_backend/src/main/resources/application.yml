@@ -15,6 +15,10 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
 mybatis-plus:
   mapper-locations:
     classpath*:mapper/*Mapper.xml

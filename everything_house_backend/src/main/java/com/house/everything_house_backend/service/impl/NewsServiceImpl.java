@@ -1,20 +1,16 @@
 package com.house.everything_house_backend.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.house.everything_house_backend.entities.News;
 import com.house.everything_house_backend.mapper.NewsMapper;
 import com.house.everything_house_backend.service.INewsService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -25,7 +21,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class NewsService extends ServiceImpl<NewsMapper, News> implements INewsService {
+@Primary
+public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements INewsService {
     @Autowired
     private NewsMapper newsMapper;
     private static final String NEWS_URL = "https://news.sina.com.cn/china/";
@@ -63,8 +60,11 @@ public class NewsService extends ServiceImpl<NewsMapper, News> implements INewsS
             //int id=i;
             String title = newsElement.findElement(By.cssSelector("h2 > a")).getText();
             String url = newsElement.findElement(By.cssSelector("h2 > a")).getAttribute("href");
-
-            String imageUrl = newsElement.findElement(By.cssSelector("div.feed-card-img > a > img")).getAttribute("src");
+            String imageUrl= "";
+            try{
+                imageUrl = newsElement.findElement(By.cssSelector("div.feed-card-img > a > img")).getAttribute("src");
+            }catch (RuntimeException e){
+            }
 
             String summary = newsElement.findElement(By.cssSelector("div.feed-card-txt > a.feed-card-txt-summary")).getText();
 

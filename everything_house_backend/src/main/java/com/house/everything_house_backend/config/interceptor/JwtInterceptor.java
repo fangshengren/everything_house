@@ -9,7 +9,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.house.everything_house_backend.common.Constants;
 import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.exception.ServiceException;
-import com.house.everything_house_backend.service.impl.SysUserService;
+import com.house.everything_house_backend.service.impl.SysUserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class JwtInterceptor implements HandlerInterceptor{
     @Autowired
-    private SysUserService sysUserService;
+    private SysUserServiceImpl sysUserServiceImpl;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
@@ -42,7 +42,7 @@ public class JwtInterceptor implements HandlerInterceptor{
             throw new ServiceException(Constants.CODE_401, errMsg);
         }
         // 根据token中的userid查询数据库
-        User user = sysUserService.getById(userId);
+        User user = sysUserServiceImpl.getById(userId);
         if (user == null) {
             throw new ServiceException(Constants.CODE_401, "用户不存在，请重新登录");
         }

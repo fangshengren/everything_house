@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
+    /**
+     * 这个Controller没有p用，仅仅项目初用来测试
+     * @return
+     */
     @RequestMapping("/test")
     public String login(){
         return "main.html";

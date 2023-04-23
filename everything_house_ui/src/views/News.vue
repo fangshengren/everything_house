@@ -19,7 +19,7 @@
       <el-table-column label="图片" prop="img">
         <template slot-scope="scope">
           <div class="news-img">
-            <img :src="scope.row.imgUrl" alt="图片加载异常" >
+            <img :src="scope.row.imgUrl" alt="图片加载异常或图片不存在" >
           </div>
         </template>
       </el-table-column>

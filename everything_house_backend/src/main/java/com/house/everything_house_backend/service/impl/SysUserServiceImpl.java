@@ -16,6 +16,7 @@ import com.house.everything_house_backend.utils.MD5Util;
 import com.house.everything_house_backend.utils.TokenUtils;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ import java.util.Map;
 
 
 @Service
-public class SysUserService extends ServiceImpl<UserMapper, User> implements ISysUserService {
+@Primary
+public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements ISysUserService {
     @Autowired
     private UserMapper userMapper;
     @Resource
@@ -32,7 +34,7 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
     @Resource
     private RoleMapper roleMapper;
     @Resource
-    private MenuService menuService;
+    private MenuServiceImpl menuServiceImpl;
 
     @Override
     public List<User> selectPage(Integer pageNum, Integer pageSize) {
@@ -83,9 +85,9 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
 
     @Override
     public int updateUser(User user) {
-        String salt = MD5Util.generateSalt(8);
-        String hashedPassword = MD5Util.getMD5(user.getPassword()+salt);
-        user.setPassword(hashedPassword);
+//        String salt = MD5Util.generateSalt(8);
+//        String hashedPassword = MD5Util.getMD5(user.getPassword()+salt);
+//        user.setPassword(hashedPassword);
         return userMapper.updateById(user);
     }
 
@@ -134,7 +136,7 @@ public class SysUserService extends ServiceImpl<UserMapper, User> implements ISy
         //当前角色Id的所有菜单id集合
         List<Integer> menuIds=roleMenuMapper.selectByRoleId(roleId);
         //查出系统所有菜单
-        List<Menu> menus=menuService.findMenus("");
+        List<Menu> menus= menuServiceImpl.findMenus("");
         //筛选当前用户菜单
         List<Menu> roleMenus=new ArrayList<>();
         for(Menu menu:menus){

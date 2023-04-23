@@ -5,13 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.house.everything_house_backend.entities.Menu;
 import com.house.everything_house_backend.mapper.MenuMapper;
+import com.house.everything_house_backend.service.IMenuService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MenuService extends ServiceImpl<MenuMapper, Menu> {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
     public List<Menu> findMenus(String name) {
         QueryWrapper<Menu> queryWrapper=new QueryWrapper<>();
         if(StrUtil.isNotBlank(name)){

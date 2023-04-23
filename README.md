@@ -4,6 +4,8 @@
 
 导出的路径也需要修改
 
+修改redis的host
+
 
 
 前端中 request.js文件中localhost需要改成服务器的ip

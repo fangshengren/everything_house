@@ -82,6 +82,9 @@
             <if test="nickname !=null ">
                 nickname=#{nickname},
             </if>
+            <if test="nickname == null ">
+                nickname="用户114514",
+            </if>
             <if test="email !=null ">
                 email=#{email},
             </if>
@@ -113,6 +116,7 @@
             <if test="username != null">username,</if>
             <if test="password != null ">password,</if>
             <if test="nickname != null ">nickname,</if>
+            <if test="nickname == null ">nickname,</if>
             <if test="email != null ">email,</if>
             <if test="phone != null">phone,</if>
             <if test="address != null">address,</if>
@@ -123,6 +127,7 @@
             <if test="username != null">#{username},</if>
             <if test="password != null ">#{password},</if>
             <if test="nickname != null ">#{nickname},</if>
+            <if test="nickname == null ">"用户114514",</if>
             <if test="email != null ">#{email},</if>
             <if test="phone != null">#{phone},</if>
             <if test="address != null">#{address},</if>

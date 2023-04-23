@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.Quarter;
 import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.entities.User;
-import com.house.everything_house_backend.service.impl.SysUserService;
+import com.house.everything_house_backend.service.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +17,11 @@ import java.util.List;
 @RequestMapping("/echarts")
 public class EchartsController {
     @Autowired
-    private SysUserService sysUserService;
+    private SysUserServiceImpl sysUserServiceImpl;
     //统计每个季度的会员人数
     @GetMapping("/members")
     public Result members(){
-        List<User> list=sysUserService.list();
+        List<User> list= sysUserServiceImpl.list();
         int q1=0;//分别定义四个季度
         int q2=0;
         int q3=0;

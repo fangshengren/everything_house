@@ -8,7 +8,7 @@ import com.house.everything_house_backend.mapper.DictMapper;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.house.everything_house_backend.service.impl.MenuService;
+import com.house.everything_house_backend.service.impl.MenuServiceImpl;
 
 import java.util.List;
 
@@ -16,47 +16,47 @@ import java.util.List;
 @RequestMapping("/menu")
 public class MenuController {
     @Autowired
-    private MenuService menuService;
+    private MenuServiceImpl menuServiceImpl;
     @Resource
     private DictMapper dictMapper;
 
     //增加菜单
     @PostMapping
     public Result save(@RequestBody Menu menu){
-        menuService.saveOrUpdate(menu);
+        menuServiceImpl.saveOrUpdate(menu);
         return Result.success();
     }
 
     //根据id删除菜单
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id){
-        menuService.removeById(id);
+        menuServiceImpl.removeById(id);
         return Result.success();
     }
 
     //批量删除菜单
     @PostMapping("/del/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids){
-        menuService.removeByIds(ids);
+        menuServiceImpl.removeByIds(ids);
         return Result.success();
     }
 
     //根据id查找菜单
     @GetMapping("/{id}")
     public Result findById(@PathVariable Integer id){
-        return Result.success(menuService.getById(id));
+        return Result.success(menuServiceImpl.getById(id));
     }
 
     //查询全部菜单
     @GetMapping
     public Result findAll( @RequestParam(defaultValue = "") String name){
-        return Result.success(menuService.findMenus(name));
+        return Result.success(menuServiceImpl.findMenus(name));
     }
 
     //查询所有菜单id
     @GetMapping("/ids")
     public Result findAllIds(){
-        return Result.success(menuService.list().stream().map(Menu::getId));
+        return Result.success(menuServiceImpl.list().stream().map(Menu::getId));
     }
 
     //分页查找
@@ -67,7 +67,7 @@ public class MenuController {
         QueryWrapper<Menu> queryWrapper=new QueryWrapper<>();
         queryWrapper.like("name",name);
         queryWrapper.orderByDesc("id");
-        return Result.success(menuService.page(new Page<>(pageNum,pageSize),queryWrapper));
+        return Result.success(menuServiceImpl.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
     //查找图标
