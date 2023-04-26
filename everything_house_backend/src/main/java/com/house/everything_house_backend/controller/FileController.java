@@ -9,9 +9,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.entities.Files;
 import com.house.everything_house_backend.mapper.FileMapper;
+import com.house.everything_house_backend.service.IFileService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +37,8 @@ public class FileController {
     private String baseUrl;
     @Resource
     private FileMapper fileMapper;
+    @Autowired
+    private IFileService fileService;
 
     @PostMapping("/upload")
     public String upload(@RequestParam MultipartFile file) throws IOException {
@@ -99,26 +103,15 @@ public class FileController {
     }
 
     private Files getFileByMd5(String md5) {
-        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("md5", md5);
-        List<Files> filesList = fileMapper.selectList(queryWrapper);
-        return filesList.isEmpty() ? null : filesList.get(0);
+        return fileService.getFileByMd5(md5);
     }
 
     private Files getFileByMd5AndName(String md5, String name) {
-        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("md5", md5).eq("name", name);
-        return fileMapper.selectOne(queryWrapper);
+        return fileService.getFileByMd5AndName(md5,name);
     }
 
     private void saveFileInfo(String name, String type, Long size, String url, String md5) {
-        Files saveFile = new Files();
-        saveFile.setName(name);
-        saveFile.setType(type);
-        saveFile.setSize(size / 1024);
-        saveFile.setUrl(url);
-        saveFile.setMd5(md5); // 设置文件的 MD5 属性
-        fileMapper.insert(saveFile);
+        fileService.saveFileInfo(name,type,size,url,md5);
     }
 
     @PostMapping("/update")

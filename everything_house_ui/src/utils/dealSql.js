@@ -31,5 +31,22 @@ export default {
 
       return loadingInstance;
     },
+
+    loginToggleLoading(loading) {
+      let loadingInstance;
+
+      if (loading) {
+        loadingInstance = this.$loading({
+          lock: true,
+          text: "正在登入...",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+      } else {
+        loadingInstance && loadingInstance.close();
+      }
+
+      return loadingInstance;
+    },
   },
 }

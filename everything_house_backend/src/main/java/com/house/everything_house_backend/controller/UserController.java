@@ -6,16 +6,20 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.excel.EasyExcel;
 import com.house.everything_house_backend.common.Constants;
 import com.house.everything_house_backend.common.Result;
+import com.house.everything_house_backend.config.AuthAccess;
 import com.house.everything_house_backend.controller.dto.UserDTO;
 import com.house.everything_house_backend.entities.User;
+import com.house.everything_house_backend.exception.ServiceException;
 import com.house.everything_house_backend.listener.UserExcelListener;
 import com.house.everything_house_backend.mapper.UserMapper;
 import com.house.everything_house_backend.service.ISysUserService;
 import com.house.everything_house_backend.utils.MD5Util;
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -196,6 +200,27 @@ public class UserController {
         else{
             return Result.error();
         }
+    }
+
+    @PostMapping("/sendEmail/{email}")
+    public Result sendEmail(@PathVariable String email){
+        if (StrUtil.isBlank(email)){
+            throw new ServiceException(Constants.CODE_400,"参数错误");
+        }
+        sysUserService.sendCode(email);
+        return Result.success(email);
+    }
+
+    @PostMapping("/loginByEmail")
+    public Result loginByEmail(@RequestBody UserDTO userDTO){
+        String email=userDTO.getEmail();//先对userDTO进行是否为空的校验
+        String code=userDTO.getCode();
+        //调用hutool工具中的StrUtil函数实现用户名和密码是否为空的判断
+        if(StrUtil.isBlank(email) || StrUtil.isBlank(code)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        UserDTO dto=sysUserService.loginByEmail(userDTO);
+        return Result.success(dto);
     }
 
 }

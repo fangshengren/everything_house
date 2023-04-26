@@ -125,11 +125,14 @@ html,body{
 
 .login_box{
     width: 350px;
-    height: 300px;
+    height: 380px;
     background-color: #fff;
     border-radius: 3px;
     position: relative;
     padding: 0 15px;
+}
+.login_input_form>.el-form-item__content>.el-form-item__error{
+    margin-left: 25px;
 }
 /*Login样式结束*/
 /*News.vue样式开始*/

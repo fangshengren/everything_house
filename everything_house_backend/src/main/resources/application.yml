@@ -19,6 +19,17 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
+  mail:
+    host: smtp.qq.com
+    username: 3164113754@qq.com
+    password: kspreoubjpqudgfg
+    properties:
+      mail:
+        smtp:
+          auth: true  # 必须进行授权认证，它的目的就是阻止他人任意乱发邮件
+          starttls: #SMTP加密方式:连接到一个TLS保护连接
+            enable: true
+            required: true
 mybatis-plus:
   mapper-locations:
     classpath*:mapper/*Mapper.xml

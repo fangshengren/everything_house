@@ -16,5 +16,7 @@ public class UserDTO {
     //把当前登录用户的角色以及他的菜单项带出来
     private String role;
     private String avatar;
+    private String email;
+    private String code;
     private List<Menu> menus;
 }

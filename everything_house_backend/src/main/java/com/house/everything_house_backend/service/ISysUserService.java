@@ -23,10 +23,16 @@ public interface ISysUserService{
 
     UserDTO login(UserDTO userDTO);
 
+    public UserDTO loginByEmail(UserDTO userDTO);
+
     int selectNumberOfUser();
 
     int selectNumberOfAdmin();
 
     public int selectNumberOfUserName(String queryUserName);
+
+    public void sendCode(String email);
+
+    public void sendUserDetailEmail(String username,String password,String email);
 
 }

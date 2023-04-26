@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.house.everything_house_backend.entities.RoleMenu;
 import com.house.everything_house_backend.mapper.RoleMenuMapper;
 import com.house.everything_house_backend.service.IRoleMenuService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> implements IRoleMenuService {
 }
