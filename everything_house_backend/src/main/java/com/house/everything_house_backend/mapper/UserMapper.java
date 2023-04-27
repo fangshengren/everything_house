@@ -23,6 +23,8 @@ public interface UserMapper extends BaseMapper<User> {
     int insertMoreUser(@Param("userList") List<User> userList);
     int updateUser(User user);
 
+    int updateUserByIdForChangeEmail(User user);
+
     @Delete("delete from sys_user where id=#{id}")
     int deleteById(@Param("id") Integer id);
 

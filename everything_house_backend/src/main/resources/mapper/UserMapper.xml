@@ -103,6 +103,16 @@
         </where>
     </update>
 
+    <update id="updateUserByIdForChangeEmail" parameterType="User">
+        update sys_user
+        <trim prefix="SET" suffixOverrides=",">
+                email=#{email},
+        </trim>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
     <delete id="removeByIds" parameterType="String">
         delete from sys_user where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">

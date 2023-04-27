@@ -19,7 +19,14 @@
           <el-input v-model="form.nickname" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="form.email" autocomplete="off"></el-input>
+          <el-row>
+            <el-col :span="18">
+              <el-input v-model="form.email" disabled autocomplete="off"></el-input>
+            </el-col>
+            <el-col :span="5" style="margin-left: 15px">
+              <el-button type="primary" @click="bindEmail()">更改邮箱</el-button>
+            </el-col>
+          </el-row>
         </el-form-item>
         <el-form-item label="电话">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
@@ -32,6 +39,58 @@
         </el-form-item>
       </el-form>
     </el-card>
+
+    <!-- 弹窗  -->
+    <el-dialog title="绑定邮箱" :visible.sync="dialogFormVisible" width="30%">
+      <el-form ref="bindEmailForm" label-width="80px" :model="emailForm" :rules="EmailFormRules">
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="emailForm.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" prop="code">
+          <el-row>
+            <el-col :span="14">
+              <el-input v-model="emailForm.code" autocomplete="off"></el-input>
+            </el-col>
+            <el-col :span="8" style="margin-left: 15px">
+              <el-button
+                  type="primary"
+                  size="medium"
+                  @click="sendEmailCode()"
+                  :disabled="isDisabled"
+              >{{ buttonText }}</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="medium" @click="bindEmailSubmit()">确 定 绑 定</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <el-dialog title="解绑邮箱" :visible.sync="dialogFormVisible2" width="30%">
+      <el-form ref="bindEmailForm" label-width="80px" :model="emailForm" :rules="EmailFormRules">
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="emailForm.email" disabled autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" prop="code">
+          <el-row>
+            <el-col :span="14">
+              <el-input v-model="emailForm.code" autocomplete="off"></el-input>
+            </el-col>
+            <el-col :span="8" style="margin-left: 15px">
+              <el-button
+                  type="primary"
+                  size="medium"
+                  @click="sendUnbindEmailCode()"
+                  :disabled="isDisabled"
+              >{{ buttonText }}</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="medium" @click="unbundleEmailSubmit()">确 定 解 绑</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,6 +101,11 @@ export default {
   name: "Person",
   data() {
     return {
+      isDisabled: false,
+      buttonText: "获取验证码",
+      countdown: 60,
+      dialogFormVisible: false,
+      dialogFormVisible2: false,
       form: {
         id: '',
         avatar: '',
@@ -50,6 +114,20 @@ export default {
         email: '',
         phone: '',
         address: ''
+      },
+      emailForm:{
+        email: '',
+        code: '',
+        username: '',
+      },
+      EmailFormRules:{
+        email:[
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+        ],
+        code:[
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+          { min:4,max:4,message: '验证码长度为4位',trigger: 'change'}
+        ]
       },
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
     };
@@ -132,10 +210,153 @@ export default {
         }
       });
     },
+    bindEmail() {
+      if (this.form.email === "") {
+        this.emailForm.username=this.form.username;
+        this.dialogFormVisible = true;
+      } else {
+        this.emailForm.email = this.form.email;
+        this.dialogFormVisible2 = true;
+        this.$message.warning("请先解绑当前邮箱，然后再绑定新邮箱");
+      }
+    },
 
+    sendEmailCode(){
+      // 禁用按钮并启动倒计时
+      this.isDisabled = true;
+      this.buttonText = `请等待 ${this.countdown} 秒`;
+      const timer = setInterval(() => {
+        if (this.countdown <= 0) {
+          clearInterval(timer); // 停止计时器
+          this.buttonText = '获取验证码';
+          this.isDisabled = false;
+          this.countdown = 60;
+        } else {
+          this.countdown--;
+          this.buttonText = `请等待 ${this.countdown} 秒`;
+        }
+      }, 1000);
+      if (!this.emailForm.email) {
+        this.$message.error("请输入邮箱");
+        return;
+      }
+      if (!(/^\w+((-?\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(this.emailForm.email))) {
+        this.$message.error("请输入正确的邮箱账号");
+        return;
+      }
+      this.$message.success("验证码已发送,请耐心等待系统响应");
+      this.request.post("/user/sendEmail/"+this.emailForm.email).then(res=>{
+        if(res.code==='200'){
+          this.$message.success('验证码发送成功！');
+        }else{
+          this.$message.error(res.msg);
+        }
+      }).catch((error)=>{
+        console.log(error)
+        this.$message.error('请求失败，请稍后再试！');
+      });
+    },
+    sendUnbindEmailCode(){
+      // 禁用按钮并启动倒计时
+      this.isDisabled = true;
+      this.buttonText = `请等待 ${this.countdown} 秒`;
+      const timer = setInterval(() => {
+        if (this.countdown <= 0) {
+          clearInterval(timer); // 停止计时器
+          this.buttonText = '获取验证码';
+          this.isDisabled = false;
+          this.countdown = 60;
+        } else {
+          this.countdown--;
+          this.buttonText = `请等待 ${this.countdown} 秒`;
+        }
+      }, 1000);
+      if (!this.emailForm.email) {
+        this.$message.error("请输入邮箱");
+        return;
+      }
+      if (!(/^\w+((-?\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(this.emailForm.email))) {
+        this.$message.error("请输入正确的邮箱账号");
+        return;
+      }
+      this.$message.success("验证码已发送,请耐心等待系统响应");
+      this.request.post("/user/sendUnbindEmail/"+this.emailForm.email).then(res=>{
+        console.log(res)
+        if(res.code==='200'){
+          this.$message.success('验证码发送成功！');
+        }else{
+          this.$message.error(res.msg);
+        }
+      }).catch((error)=>{
+        console.log(error)
+        this.$message.error('请求失败，请稍后再试！');
+      });
+    },
+    bindEmailSubmit(){
+      if (!this.emailForm.code) {
+        this.$message.error("请输入验证码");
+        return;
+      }
+      this.request.post("/user/bindEmail",this.emailForm).then(res=>{
+        console.log(res)
+        if(res.code==='200'){
+          this.$message.success('绑定成功！');
+          this.dialogFormVisible = false;
+          this.emailForm.email = '';
+          this.emailForm.code = '';
+          // 获取本地存储中的 user 对象
+          let user = JSON.parse(localStorage.getItem("user"));
 
+          // 仅更新需要更新的属性
+          user.email = this.emailForm.email;
+
+          // 将更新后的 user 对象存回本地存储
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // 刷新页面
+          window.location.reload();
+        }else{
+          this.$message.error(res.msg);
+        }
+      }).catch((error)=>{
+        console.log(error)
+        this.$message.error('请求失败，请稍后再试！');
+      });
+    },
+
+    unbundleEmailSubmit() {
+      if (!this.emailForm.code) {
+        this.$message.error("请输入验证码");
+        return;
+      }
+      this.request.post("/user/unbindEmail",this.emailForm).then(res=>{
+        console.log(res)
+        if(res.code==='200'){
+          this.$message.success('解绑成功！');
+          this.dialogFormVisible = false;
+          this.emailForm.email = '';
+          this.emailForm.code = '';
+          // 获取本地存储中的 user 对象
+          let user = JSON.parse(localStorage.getItem("user"));
+
+          // 仅更新需要更新的属性
+          user.email = this.emailForm.email;
+
+          // 将更新后的 user 对象存回本地存储
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // 刷新页面
+          window.location.reload();
+        }else{
+          this.$message.error(res.msg);
+        }
+      }).catch((error)=>{
+        console.log(error)
+        this.$message.error('请求失败，请稍后再试！');
+      });
+    },
+    },
   }
-}
 </script>
 
 <style>

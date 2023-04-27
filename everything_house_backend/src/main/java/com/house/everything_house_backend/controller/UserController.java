@@ -207,8 +207,49 @@ public class UserController {
         if (StrUtil.isBlank(email)){
             throw new ServiceException(Constants.CODE_400,"参数错误");
         }
-        sysUserService.sendCode(email);
+        try{
+            sysUserService.sendCode(email,"您的百宝箱验证码消息");
+        }catch (ServiceException e){
+            return Result.error(Constants.CODE_400,"邮箱不存在");
+        }
         return Result.success(email);
+    }
+
+    @PostMapping("/sendUnbindEmail/{email}")
+    public Result sendUnbindEmail(@PathVariable String email){
+        if (StrUtil.isBlank(email)){
+            throw new ServiceException(Constants.CODE_400,"参数错误");
+        }
+        try{
+            sysUserService.sendCode(email,"您的百宝箱解绑邮箱验证码消息");
+        }catch (ServiceException e){
+            return Result.error(Constants.CODE_400,"邮箱不存在");
+        }
+        return Result.success(email);
+    }
+
+    @PostMapping("/bindEmail")
+    public Result bindEmail(@RequestBody UserDTO userDTO){
+        String email=userDTO.getEmail();//先对userDTO进行是否为空的校验
+        String code=userDTO.getCode();
+        //调用hutool工具中的StrUtil函数实现用户名和密码是否为空的判断
+        if(StrUtil.isBlank(email) || StrUtil.isBlank(code)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        UserDTO dto=sysUserService.bindEmail(userDTO);
+        return Result.success(dto);
+    }
+
+    @PostMapping("/unbindEmail")
+    public Result unbindEmail(@RequestBody UserDTO userDTO){
+        String email=userDTO.getEmail();//先对userDTO进行是否为空的校验
+        String code=userDTO.getCode();
+        //调用hutool工具中的StrUtil函数实现用户名和密码是否为空的判断
+        if(StrUtil.isBlank(email) || StrUtil.isBlank(code)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        UserDTO dto=sysUserService.unbindEmail(userDTO);
+        return Result.success(dto);
     }
 
     @PostMapping("/loginByEmail")

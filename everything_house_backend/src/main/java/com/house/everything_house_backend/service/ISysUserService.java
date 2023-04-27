@@ -31,8 +31,12 @@ public interface ISysUserService{
 
     public int selectNumberOfUserName(String queryUserName);
 
-    public void sendCode(String email);
+    public void sendCode(String email,String subject);
 
     public void sendUserDetailEmail(String username,String password,String email);
+
+    public UserDTO bindEmail(UserDTO userDTO);
+
+    public UserDTO unbindEmail(UserDTO userDTO);
 
 }

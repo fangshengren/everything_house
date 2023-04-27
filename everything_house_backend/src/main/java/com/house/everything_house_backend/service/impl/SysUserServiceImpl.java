@@ -147,11 +147,11 @@ public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements
     public JavaMailSender javaMailSender;
 
     @Override
-    public void sendCode(String email){
+    public void sendCode(String email,String subject){
         String code = getLoginEmailCode(4);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("3164113754@qq.com");
-        mailMessage.setSubject("您的百宝箱验证码消息");
+        mailMessage.setSubject(subject);
         mailMessage.setSentDate(new Date());
         mailMessage.setText(code+"           千万不要把验证码发给其他人！！！！！！验证码有效期为5分钟，请以最新的验证码为准！！！");
         mailMessage.setTo(email);
@@ -241,7 +241,71 @@ public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements
         javaMailSender.send(mailMessage);
     }
 
-//    不用密码生成Token的方法，但是方法要统一，后面采用随机生成用户密码的方法，所以以下returnEmailLoginUser方法被弃用
+    @Override
+    public UserDTO bindEmail(UserDTO userDTO) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email",userDTO.getEmail());
+        User one;
+        try{
+            one=getOne(queryWrapper);
+        }catch (Exception e){
+            throw new ServiceException(Constants.CODE_500,"系统错误");
+        }
+        if(one!=null){
+            throw new ServiceException(Constants.CODE_600,"该邮箱已被绑定");
+        }else {
+            String realCode=(String) redisTemplate.opsForValue().get(EMAIL_CODE_KEY+userDTO.getEmail());
+            String code=userDTO.getCode();
+            if(!Objects.equals(realCode, code)){
+                throw new ServiceException(Constants.CODE_600,"验证码错误");
+            }
+            User user = getByUsername(userDTO.getUsername());
+            user.setEmail(userDTO.getEmail());
+            updateById(user);
+            redisTemplate.delete(EMAIL_CODE_KEY+userDTO.getEmail());
+            return userDTO;
+        }
+    }
+
+    @Override
+    public UserDTO unbindEmail(UserDTO userDTO) {
+        String realCode=(String) redisTemplate.opsForValue().get(EMAIL_CODE_KEY+userDTO.getEmail());
+        String code=userDTO.getCode();
+        if(!Objects.equals(realCode, code)){
+            throw new ServiceException(Constants.CODE_600,"验证码错误");
+        }
+        User user = getByEmail(userDTO.getEmail());
+        user.setEmail(null);
+        userMapper.updateUserByIdForChangeEmail(user);
+        redisTemplate.delete(EMAIL_CODE_KEY+userDTO.getEmail());
+        return userDTO;
+    }
+
+    private User getByEmail(String email) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email",email);
+        User one;
+        try{
+            one=getOne(queryWrapper);
+        }catch (Exception e){
+            throw new ServiceException(Constants.CODE_500,"系统错误");
+        }
+        return one;
+    }
+
+    private User getByUsername(String username) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",username);
+        User one;
+        try{
+            one=getOne(queryWrapper);
+        }catch (Exception e){
+            throw new ServiceException(Constants.CODE_500,"系统错误");
+        }
+        return one;
+    }
+
+    //    不用密码生成Token的方法，但是方法要统一，后面采用随机生成用户密码的方法，所以以下returnEmailLoginUser方法被弃用
     private UserDTO returnEmailLoginUser(User one,UserDTO userDTO){
         BeanUtil.copyProperties(one,userDTO,true);
         //设置token

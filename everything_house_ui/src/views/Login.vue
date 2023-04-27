@@ -20,8 +20,13 @@
           <el-button type="primary" size="small" @click="login" >登录</el-button>
           <el-button type="warning" size="small" @click="resetLoginForm">重置</el-button>
           <br>
-          <div style="text-align:right;padding-right: 20px;">
-            <span style="color: #409EFF; text-decoration: underline; cursor: pointer; " @click="register">注册用户</span>
+          <div style="display: flex; justify-content: space-between; padding: 0 20px;">
+            <div style="text-align: left;">
+              <span style="color: #409EFF; text-decoration: underline; cursor: pointer;" @click="forgetPassword">忘记密码</span>
+            </div>
+            <div style="text-align: right;">
+              <span style="color: #409EFF; text-decoration: underline; cursor: pointer;" @click="register">注册用户</span>
+            </div>
           </div>
         </div>
       </el-form>
@@ -185,6 +190,7 @@ export default {
         this.$message.error("请输入正确的邮箱账号");
         return;
       }
+      this.$message.success("验证码已发送,请耐心等待系统响应");
       this.request.post("/user/sendEmail/"+this.emailLoginForm.email).then(res=>{
         console.log(res)
         if(res.code==='200'){
@@ -205,7 +211,11 @@ export default {
     },
     register(){
       this.$router.push("/register");
+    },
+    forgetPassword(){
+      this.$router.push("/forgetPassword");
     }
+
   }
 }
 </script>
