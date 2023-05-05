@@ -215,6 +215,20 @@ public class UserController {
         return Result.success(email);
     }
 
+    @AuthAccess
+    @PostMapping("/sendForgetPasswordEmail/{email}")
+    public Result sendForgetPasswordEmail(@PathVariable String email){
+        if (StrUtil.isBlank(email)){
+            throw new ServiceException(Constants.CODE_400,"参数错误");
+        }
+        try{
+            sysUserService.sendCode(email,"您的百宝箱找回密码验证码消息");
+        }catch (ServiceException e){
+            return Result.error(Constants.CODE_400,"邮箱不存在");
+        }
+        return Result.success(email);
+    }
+
     @PostMapping("/sendUnbindEmail/{email}")
     public Result sendUnbindEmail(@PathVariable String email){
         if (StrUtil.isBlank(email)){
@@ -262,6 +276,42 @@ public class UserController {
         }
         UserDTO dto=sysUserService.loginByEmail(userDTO);
         return Result.success(dto);
+    }
+
+    @AuthAccess
+    @PostMapping("/checkChangePassword")
+    public Result checkChangePassword(@RequestBody UserDTO userDTO){
+        String email=userDTO.getEmail();//先对userDTO进行是否为空的校验
+        String code=userDTO.getCode();
+        String password=userDTO.getPassword();
+        //调用hutool工具中的StrUtil函数实现用户名和密码是否为空的判断
+        if(StrUtil.isBlank(email) || StrUtil.isBlank(code)){
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        boolean result=sysUserService.emailVerificationSuccess(userDTO);
+        if (!result){
+            return Result.error(Constants.CODE_400,"验证码错误");
+        }
+        if(password.length()<8||password.length()>20){
+            return Result.error("500","密码长度不符合要求，请更改您的密码");
+        }
+        String regex1="[\\s]";
+        String regex2="[\u4e00-\u9fa5]";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Pattern pattern2 = Pattern.compile(regex2);
+        if (pattern1.matcher(password).find()){
+            return Result.error("500","密码中含有空格，请更改您的密码");
+        }
+        if (pattern2.matcher(password).find()){
+            return Result.error("500","密码中含有中文，请更改您的密码");
+        }
+        User user = sysUserService.getByEmail(email);
+        String salt = MD5Util.generateSalt(8);
+        String hashedPassword = MD5Util.getMD5(password+salt);
+        user.setPassword(hashedPassword);
+        user.setSalt(salt);
+        sysUserService.updateUser(user);
+        return Result.success("密码修改成功");
     }
 
 }

@@ -39,4 +39,8 @@ public interface ISysUserService{
 
     public UserDTO unbindEmail(UserDTO userDTO);
 
+    public boolean emailVerificationSuccess(UserDTO userDTO);
+
+    public User getByEmail(String email);
+
 }

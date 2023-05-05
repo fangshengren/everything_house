@@ -281,7 +281,8 @@ public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements
         return userDTO;
     }
 
-    private User getByEmail(String email) {
+    @Override
+    public User getByEmail(String email) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("email",email);
         User one;
@@ -322,6 +323,19 @@ public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements
         redisTemplate.delete(EMAIL_CODE_KEY+userDTO.getEmail());
         return userDTO;//返回登录类userDTO
     }
+
+    //verificationSuccess
+    @Override
+    public boolean emailVerificationSuccess(UserDTO userDTO) {
+        String realCode=(String) redisTemplate.opsForValue().get(EMAIL_CODE_KEY+userDTO.getEmail());
+        String code=userDTO.getCode();
+        if(!Objects.equals(realCode, code)){
+            throw new ServiceException(Constants.CODE_600,"验证码错误");
+        }
+        redisTemplate.delete(EMAIL_CODE_KEY+userDTO.getEmail());
+        return true;
+    }
+
 
     private static String getLoginEmailCode(int n) {
         Random r = new Random();
@@ -366,5 +380,7 @@ public class SysUserServiceImpl extends ServiceImpl<UserMapper, User> implements
         }
         return password.toString();
     }
+
+
 
 }
