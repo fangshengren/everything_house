@@ -16,7 +16,7 @@ html,body{
 }
 
 /*el-header开始*/
-.el-header {
+.el-header-operation {
     /*height: 10vh;*/
     text-align: right;
     font-size: 12px;
@@ -34,7 +34,7 @@ html,body{
     margin-right: 5px;
 }
 
-.el-header::after{
+.el-header-operation::after{
     content: '';
     position: absolute;
     left: 0;
@@ -44,7 +44,7 @@ html,body{
     background: linear-gradient(to bottom, rgb(235, 235, 235), rgb(255, 255, 255));
 }
 /*el-header结束*/
-.el-container {
+.el-container-operation {
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -64,7 +64,7 @@ html,body{
     /*font-weight: bold;*/
 }
 
-.el-main{
+.el-main-operation{
     flex: 1; /* 使主内容区自动填充剩余空间 */
     padding: 0;
     text-align: left;
@@ -73,7 +73,7 @@ html,body{
     margin: 0 auto;
 }
 
-.el-aside {
+.el-aside-operation {
     flex: 0 0 200px; /* 固定侧边栏宽度 */
     background-color: rgb(238, 241, 246);
 }

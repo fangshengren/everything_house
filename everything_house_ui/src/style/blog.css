@@ -1,0 +1,70 @@
+.el-header-blog{
+    background-color:#505254;
+}
+.el-footer-blog{
+    background-color:#505254;
+}
+/*header相关*/
+.blog-header-image{
+    width: 2rem;
+    height: 2rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blog-header-container{
+    width: 80%;
+    height: 100%;
+}
+.blog-header-left{
+    margin-top : 0.5rem;
+    float: left;
+    width: 20%;
+}
+
+.el-header-blog, .el-footer-blog {
+    color: #333;
+    text-align: center;
+}
+.el-main-blog {
+    min-height: calc(100vh - 80px);
+    text-align: center;
+    line-height: 160px;
+}
+
+body > .el-container-blog {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    border: 1px solid #eee;
+    min-width: 100%;
+    position: relative;
+}
+
+/*响应式*/
+@media screen and (min-width: 1px) and (max-width: 768px) {
+    html{
+        font-size: calc(40px / 3);
+    }
+    .el-header-blog, .el-footer-blog {
+        height: 40px!important;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    html{
+        font-size: calc(60px / 3);
+    }
+    .el-header-blog, .el-footer-blog {
+        height: 60px!important;
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    html{
+        font-size: calc(9vh / 3);
+    }
+    .el-header-blog, .el-footer-blog {
+        height: 9vh!important;
+    }
+}

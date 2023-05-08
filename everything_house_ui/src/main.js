@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'; // 添加
 import App from './App.vue'
 import router from './router'
 import './style/gloable.css'
+import './style/blog.css'
 import request from '@/utils/request'//添加
 import dealSqlConfirm from "@/utils/dealSql";
 
