@@ -1,37 +1,4 @@
-.el-header-blog{
-    background-color:#505254;
-}
-.el-footer-blog{
-    background-color:#505254;
-}
-/*header相关*/
-.blog-header-image{
-    width: 2rem;
-    height: 2rem;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.blog-header-container{
-    width: 80%;
-    height: 100%;
-}
-.blog-header-left{
-    margin-top : 0.5rem;
-    float: left;
-    width: 20%;
-}
-
-.el-header-blog, .el-footer-blog {
-    color: #333;
-    text-align: center;
-}
-.el-main-blog {
-    min-height: calc(100vh - 80px);
-    text-align: center;
-    line-height: 160px;
-}
-
+/* General Styles */
 body > .el-container-blog {
     display: flex;
     flex-direction: row;
@@ -41,30 +8,177 @@ body > .el-container-blog {
     position: relative;
 }
 
-/*响应式*/
+/* Header and Footer */
+.el-header-blog, .el-footer-blog {
+    background-color: #505254;
+    color: #333;
+    text-align: center;
+}
+
+.el-main-blog {
+    min-height: calc(100vh - 80px);
+    text-align: center;
+    line-height: 160px;
+}
+
+/* Header Components */
+.blog-header-container {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+}
+/*header左边部分*/
+.blog-header-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 0.5rem;
+    float: left;
+    width: 20%;
+    min-width: 95px;
+}
+/*header中间部分*/
+.blog-header-menu{
+    display: flex;
+    flex-wrap: nowrap;
+    float: left;
+    min-width: 50%;
+}
+.blog-header-el-menu{
+    background-color: #505254;
+    border: none;
+    color: #d9d9d9;
+    /*text-align: center;*/
+    padding: 0;
+    margin-left: calc(max(5px, 20%));
+}
+.blog-header-el-menu>li{
+    width: 25%;
+}
+.blog-header-el-menu{
+    overflow-y: hidden;
+}
+/*header右边部分*/
+.blog-header-right {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 0.5rem;
+    float: right;
+    color: #d9d9d9;
+    width: 20%;
+}
+
+.blog-header-right-hover{
+    display: flex;
+}
+
+.blog-header-username{
+    line-height: 2rem;
+    margin-left: 0.2rem;
+    color: #d9d9d9;
+    font-size: 0.7rem;
+    white-space: nowrap; /* 防止文本换行 */
+}
+
+.blog-header-right-arrow{
+    color: #d9d9d9;
+    line-height: 2rem;
+}
+
+.blog-header-dropdown-menu{
+    position: relative;
+    right : 1rem;
+    width: 6rem;
+}
+
+.blog-header-dropdown-menu>li>.blog-header-dropdown-menu-item{
+    font-size: 0.5rem;
+    padding-right: 0;
+    width: calc(100% - 20px);
+}
+
+.blog-header-dropdown-menu-item{
+    width: 100%;
+}
+
+.blog-header-image {
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.blog-right-header-image{
+    border-radius: 50%;
+}
+
+.blog-header-title {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 2rem;
+    margin-left: 0.5rem;
+    white-space: nowrap; /* 防止文本换行 */
+}
+
+/* Responsive */
 @media screen and (min-width: 1px) and (max-width: 768px) {
-    html{
+    .blog-header-menu{
+        display: none;
+    }
+    html {
         font-size: calc(40px / 3);
     }
-    .el-header-blog, .el-footer-blog {
-        height: 40px!important;
+    .el-header-blog, .el-footer-blog{
+        height: 40px !important;
+    }
+    /*对小屏幕时仅显示头像不显示用户名*/
+    .blog-header-username{
+        display: none;
+    }
+    .blog-header-right{
+        justify-content: flex-end;
+    }
+    .blog-right-header-image{
     }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1200px) {
-    html{
+    html {
         font-size: calc(60px / 3);
     }
-    .el-header-blog, .el-footer-blog {
-        height: 60px!important;
+    .blog-header-el-menu>li,.blog-header-el-menu>li>div{
+        font-size: calc(60px / 3.5);
+    }
+    .el-header-blog, .el-footer-blog{
+        height: 60px !important;
+    }
+    .blog-header-el-menu,.blog-header-el-menu>li,.blog-header-el-menu>li>div{
+        line-height: 60px !important;
+        height: 60px !important;
+    }
+    .blog-right-header-image{
+        margin-left: 1rem;
     }
 }
 
 @media screen and (min-width: 1201px) {
-    html{
+    html {
         font-size: calc(9vh / 3);
     }
-    .el-header-blog, .el-footer-blog {
-        height: 9vh!important;
+    .blog-header-el-menu>li,.blog-header-el-menu>li>div{
+        font-size: calc(9vh / 3.5);
+    }
+    .el-header-blog, .el-footer-blog{
+        height: 9vh !important;
+    }
+    .blog-header-el-menu,.blog-header-el-menu>li,.blog-header-el-menu>li>div{
+        line-height: 9vh !important;
+        height: 9vh !important;
+    }
+    .blog-right-header-image{
+        margin-left: 1rem;
     }
 }

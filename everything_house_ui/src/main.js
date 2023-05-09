@@ -8,6 +8,7 @@ import './style/gloable.css'
 import './style/blog.css'
 import request from '@/utils/request'//添加
 import dealSqlConfirm from "@/utils/dealSql";
+import dropdown from "@/utils/dropdown";
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);// 添加
@@ -17,3 +18,5 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.directive("hover-dropdown", dropdown);

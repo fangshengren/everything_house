@@ -22,10 +22,10 @@
           <br>
           <div style="display: flex; justify-content: space-between; padding: 0 20px;">
             <div style="text-align: left;">
-              <span style="color: #409EFF; text-decoration: underline; cursor: pointer;" @click="forgetPassword">忘记密码</span>
+              <span style="color: #409EFF; text-decoration: underline; cursor: pointer; font-size: 15px" @click="forgetPassword">忘记密码</span>
             </div>
             <div style="text-align: right;">
-              <span style="color: #409EFF; text-decoration: underline; cursor: pointer;" @click="register">注册用户</span>
+              <span style="color: #409EFF; text-decoration: underline; cursor: pointer; font-size: 15px" @click="register">注册用户</span>
             </div>
           </div>
         </div>

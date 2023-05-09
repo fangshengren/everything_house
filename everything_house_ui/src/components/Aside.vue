@@ -8,7 +8,7 @@
   >
     <div style="height:60px; line-height:60px;margin-left:2.5vw">
       <img src="../assets/logo.png" style="width:20px;position:relative;top:5px;margin-right:5px"/>
-      <b style="color:white">WYQ Project</b>
+      <b style="color:white;font-size: 15px">WYQ Project</b>
     </div>
     <div v-for="item in menus" :key="item.id">
       <div v-if="item.path">
