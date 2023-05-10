@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import com.house.everything_house_backend.common.Constants;
+import com.house.everything_house_backend.config.AuthAccess;
 import com.house.everything_house_backend.entities.User;
 import com.house.everything_house_backend.exception.ServiceException;
 import com.house.everything_house_backend.service.impl.SysUserServiceImpl;
@@ -17,17 +18,31 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.lang.reflect.Method;
+
 
 @Component
 public class JwtInterceptor implements HandlerInterceptor{
     @Autowired
     private SysUserServiceImpl sysUserServiceImpl;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("token");
-        if(!(handler instanceof HandlerMethod)){
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        AuthAccess authAccessAnnotation = method.getAnnotation(AuthAccess.class);
+
+        // 如果方法上没有 AuthAccess 注解，则放行
+        if (authAccessAnnotation != null) {
+            return true;
+        }
+
+        // 以下为 JWT 验证代码
+        String token = request.getHeader("token");
 
         // 执行认证
         if (StrUtil.isBlank(token)) {

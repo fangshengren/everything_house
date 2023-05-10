@@ -15,8 +15,9 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
+          router=""
         >
-          <el-menu-item index="1"><span>首页</span></el-menu-item>
+          <el-menu-item index="/blog/homePage"><span>首页</span></el-menu-item>
           <el-submenu index="2">
             <template slot="title">文章</template>
             <el-menu-item index="2-1">文章列表</el-menu-item>
@@ -74,11 +75,15 @@
     data(){
       return{
         dropdownVisible: false,
+        activeIndex:'',
       }
     },
-    methods:{
-
+    methods: {
+      updateActiveIndex() {
+        this.activeIndex = this.$route.path;
+      },
     },
+
     computed:{
       arrowIcon() {
         return this.dropdownVisible ? "el-icon-arrow-up" : "el-icon-arrow-down";
@@ -92,6 +97,12 @@
         }
         return "Hi!" + this.user.nickname;
       }
-    }
+    },
+    watch: {
+      $route: {
+        handler: 'updateActiveIndex',
+        immediate: true,
+      }
+    },
   }
 </script>

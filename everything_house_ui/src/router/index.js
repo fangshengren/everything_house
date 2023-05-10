@@ -5,7 +5,7 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import RealHome from "@/views/RealHome.vue";
 import ForgetPassword from "@/views/ForgetPassword.vue";
-import BlogHome from "@/views/blog/BlogHome.vue";
+import BlogManage from "@/views/blog/BlogManage.vue";
 
 Vue.use(VueRouter)
 
@@ -32,8 +32,15 @@ const routes = [
   },
   {
     path: '/blog',
-    name: 'BlogHome',
-    component: BlogHome,
+    name: 'BlogManage',
+    component: BlogManage,
+    children: [
+      {
+        path:'homePage',
+        name:'BlogHomePage',
+        component:()=>import('../views/blog/BlogHomePage.vue'),
+      }
+    ]
   }
 ]
 

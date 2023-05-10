@@ -1,3 +1,6 @@
+html{
+    min-height: 100%;
+}
 /* General Styles */
 body > .el-container-blog {
     display: flex;
@@ -19,6 +22,7 @@ body > .el-container-blog {
     min-height: calc(100vh - 80px);
     text-align: center;
     line-height: 160px;
+    padding: 0;
 }
 
 /* Header Components */
@@ -126,7 +130,7 @@ body > .el-container-blog {
 /* Responsive */
 @media screen and (min-width: 1px) and (max-width: 768px) {
     .blog-header-menu{
-        display: none;
+        display: none!important;
     }
     html {
         font-size: calc(40px / 3);
@@ -140,6 +144,13 @@ body > .el-container-blog {
     }
     .blog-header-right{
         justify-content: flex-end;
+    }
+    .blog-home-page-carousel,.blog-home-page-carousel>.el-carousel__container,.blog-home-page-carousel-img{
+        height: 240px;
+    }
+    .blog-home-page-carousel>ul{
+        top:calc(40px + 240px - 96px - 50px);
+        height: 96px;
     }
     .blog-right-header-image{
     }
@@ -159,6 +170,13 @@ body > .el-container-blog {
         line-height: 60px !important;
         height: 60px !important;
     }
+    .blog-home-page-carousel,.blog-home-page-carousel>.el-carousel__container,.blog-home-page-carousel-img{
+        height: 360px;
+    }
+    .blog-home-page-carousel>ul{
+        top:calc(60px + 360px - 144px - 50px);
+        height: 120px;
+    }
     .blog-right-header-image{
         margin-left: 1rem;
     }
@@ -166,19 +184,50 @@ body > .el-container-blog {
 
 @media screen and (min-width: 1201px) {
     html {
-        font-size: calc(9vh / 3);
+        font-size: calc(5vw / 3);
     }
     .blog-header-el-menu>li,.blog-header-el-menu>li>div{
-        font-size: calc(9vh / 3.5);
+        font-size: calc(5vw / 3.5);
     }
     .el-header-blog, .el-footer-blog{
-        height: 9vh !important;
+        height: 5vw !important;
     }
     .blog-header-el-menu,.blog-header-el-menu>li,.blog-header-el-menu>li>div{
-        line-height: 9vh !important;
-        height: 9vh !important;
+        line-height: 5vw !important;
+        height: 5vw !important;
+    }
+    .blog-home-page-carousel,.blog-home-page-carousel>.el-carousel__container,.blog-home-page-carousel-img{
+        height: 30vw;
+    }
+    .blog-home-page-carousel>ul{
+        top:calc(5vw + 30vw - 12vw - 3vw);
+        height: 9vw;
     }
     .blog-right-header-image{
         margin-left: 1rem;
     }
+}
+
+/*BlogHomeMainView*/
+.blog-home-page-carousel{
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+}
+.blog-home-page-carousel>ul>li{
+    width: 14%;
+    padding:0 3%;
+}
+.blog-home-page-carousel>ul>li>button{
+    width: 100%;
+}
+.blog-home-page-carousel>ul{
+    position: absolute;
+    width: 40vw;
+}
+.blog-home-page-carousel-img{
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
