@@ -34,6 +34,7 @@ const routes = [
     path: '/blog',
     name: 'BlogManage',
     component: BlogManage,
+    redirect: '/blog/homePage',
     children: [
       {
         path:'homePage',

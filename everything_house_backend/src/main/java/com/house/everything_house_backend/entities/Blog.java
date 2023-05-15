@@ -28,4 +28,6 @@ public class Blog extends Model<Blog> {
     private String createTime;
     @TableField(value="cover_image_id")
     private Integer coverImageId;
+    private String coverImageUrl;
+    private String author;
 }

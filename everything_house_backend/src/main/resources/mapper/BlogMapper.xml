@@ -15,11 +15,18 @@
     </resultMap>
     <select id="getBlogHomePicture" resultType="java.lang.String">
         select sys_file.url
-        from sys_file
-                 join (select cover_image_id from t_blog limit 5) as b
+        from `sys_file`
+                 join (select DISTINCT `cover_image_id` from `t_blog` WHERE cover_image_id IS NOT NULL limit 5) as b
                       on sys_file.id = b.cover_image_id;
     </select>
-
+    <select id="selectPageWithCoverImageUrl" resultType="com.house.everything_house_backend.entities.Blog">
+        SELECT b.*, f.url as coverImageUrl , u.nickname as author
+        FROM t_blog b
+                 LEFT JOIN sys_file f ON b.cover_image_id = f.id
+                 LEFT JOIN sys_user u ON b.userid = u.id
+        ORDER BY b.blog_id
+            LIMIT #{page}, #{limit}
+    </select>
 
 
 </mapper>

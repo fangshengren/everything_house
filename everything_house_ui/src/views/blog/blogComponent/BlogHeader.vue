@@ -22,7 +22,7 @@
             <template slot="title">文章</template>
             <el-menu-item index="2-1">文章列表</el-menu-item>
             <el-menu-item index="2-2">文章归档</el-menu-item>
-            <el-menu-item index="2-3">文章分类</el-menu-item>
+            <el-menu-item index="/blog/moreBlogs">文章分类</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">留言</template>
@@ -50,7 +50,7 @@
         </div>
           <el-dropdown-menu slot="dropdown" class="blog-header-dropdown-menu">
             <el-dropdown-item>
-              <div @click="person" class="blog-header-dropdown-menu-item">
+              <div @click="person" class="blog-header-dropdown-menu-item" v-if="user.username!==undefined||null">
                 <span class="el-icon-user"></span>个人信息
               </div>
             </el-dropdown-item>
@@ -81,6 +81,17 @@
     methods: {
       updateActiveIndex() {
         this.activeIndex = this.$route.path;
+      },
+      login(){
+        this.$router.push('/login')
+      },
+      logout() {
+        this.$router.push("/login");
+        localStorage.removeItem("user");
+        this.$message.success("退出成功");
+      },
+      person() {
+        this.$router.push("/person");
       },
     },
 
