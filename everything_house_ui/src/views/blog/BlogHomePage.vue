@@ -12,7 +12,7 @@
         <el-card class="blog-home-page-first-part-left-card">
           <div slot="header" class="clearfix">
             <span style="font-weight: 700">最新文章</span>
-            <el-button style="float: right; padding: 3px 0;font-size: 0.7rem;color:dodgerblue;font-weight: 300" type="text">更多文章</el-button>
+            <el-button style="float: right; padding: 3px 0;font-size: 0.7rem;color:dodgerblue;font-weight: 300" type="text" @click="pushToMoreBlogs">更多文章</el-button>
           </div>
           <div class="infinite-list-wrapper" style="overflow:auto">
             <ul class="list">
@@ -38,11 +38,21 @@
           </div>
         </el-card>
         </el-col>
-        <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" style="float: right">
+        <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" style="" class="blog-home-util">
         <el-card class="blog-home-page-first-part-right-card">
           <div slot="header" class="clearfix">
             <span style="font-weight: 700">推荐工具</span>
-            <el-button type="text" style="font-size: 0.7rem;color:dodgerblue;font-weight: 300;float: right; padding: 3px 0">更多工具</el-button>
+            <el-button type="text" style="font-size: 0.7rem;color:dodgerblue;font-weight: 300;float: right; padding: 3px 0" @click="pushToMoreTools">更多工具</el-button>
+          </div>
+          <div class="infinite-list-wrapper">
+            <ul class="list tool-list">
+              <li v-for="tool in tools" class="list-item">
+                <div class="tool-item">
+                  <img :src="tool.imgHref" alt="" class="tool-img">
+                  <a :href="tool.toolLink" class="tool-link">{{tool.toolName}}</a>
+                </div>
+              </li>
+            </ul>
           </div>
         </el-card>
         </el-col>
@@ -63,6 +73,28 @@ export default {
       blogs: [
 
       ],
+      tools:[
+        {
+          imgHref: "https://openai.com/favicon.ico",
+          toolName: "chatGpt",
+          toolLink: "https://chat.openai.com/",
+        },
+        {
+          imgHref: "https://outlook.office.com/owa/favicon.ico",
+          toolName: "outLook",
+          toolLink: "https://outlook.office.com/mail/",
+        },
+        {
+          imgHref: "https://static.deepl.com/img/logo/DeepL_Logo_darkBlue_v2.svg",
+          toolName: "deepL",
+          toolLink: "https://www.deepl.com/translator",
+        },
+        {
+          imgHref: "https://www.csdn.net/favicon.ico",
+          toolName: "CSDN",
+          toolLink: "https://www.csdn.net/",
+        },
+      ],
     };
   },
   name: "BlogHomePage",
@@ -76,6 +108,12 @@ export default {
     }
   },
   methods: {
+    pushToMoreTools(){
+      this.$router.push("/blog/moreTools");
+    },
+    pushToMoreBlogs(){
+      this.$router.push("/blog/moreBlogs");
+    },
     truncateText(text, length) {
       let charCount = 0;
       for (let i = 0; i < text.length; i++) {

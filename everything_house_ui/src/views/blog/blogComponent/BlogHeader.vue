@@ -20,8 +20,8 @@
           <el-menu-item index="/blog/homePage"><span>首页</span></el-menu-item>
           <el-submenu index="2">
             <template slot="title">文章</template>
-            <el-menu-item index="2-1">文章列表</el-menu-item>
-            <el-menu-item index="2-2">文章归档</el-menu-item>
+            <el-menu-item index="/blog/moreBlogs">文章列表</el-menu-item>
+            <el-menu-item index="/blog/write">文章撰写</el-menu-item>
             <el-menu-item index="/blog/moreBlogs">文章分类</el-menu-item>
           </el-submenu>
           <el-submenu index="3">

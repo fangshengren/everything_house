@@ -40,6 +40,10 @@ const routes = [
         path:'homePage',
         name:'BlogHomePage',
         component:()=>import('../views/blog/BlogHomePage.vue'),
+      },{
+        path:'write',
+        name:'BlogWrite',
+        component:()=>import('../views/blog/BlogWrite.vue'),
       }
     ]
   }

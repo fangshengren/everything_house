@@ -279,12 +279,26 @@ body > .el-container-blog {
     height: calc(90vh - 3em);
 }
 
+/*sticky没有用啊!!!*/
+/*.blog-home-page-main-first-part>.el-row{*/
+/*    min-height: 100vh;*/
+/*    overflow: visible; !* 添加这一行 *!*/
+/*    position: relative; !* 添加这一行，确保 sticky 的定位基于这个容器 *!*/
+/*}*/
+.blog-home-util{
+    float: right;
+}
+
 /*博客内容具体展示*/
 .blog-item {
     height: 7rem;
     display: flex;
     border-bottom: 1px solid #ccc;
     padding: 0.5rem 0;
+}
+
+.blog-item:hover {
+    background-color: #fafafa;
 }
 
 .blog-cover{
@@ -316,6 +330,11 @@ body > .el-container-blog {
     margin: 0 0 0 2em;
 }
 
+.blog-title:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .blog-excerpt {
     font-size: 0.8em;
     line-height: 1em;
@@ -337,4 +356,58 @@ body > .el-container-blog {
     line-height: 0.8em;
     color: #888;
     margin:0 1em 0 2em;
+}
+
+.tool-list > li{
+    height: 1.5rem;
+    line-height: 1.5rem;
+    list-style: none;
+}
+.tool-item {
+    margin: 0.5rem 0 0.5rem 0;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.tool-img{
+    width: 1rem;
+    height: 1rem;
+    line-height: 1rem;
+    object-fit: cover;
+}
+
+.tool-link{
+    margin-left: 0.5rem;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.7rem;
+    color: #888;
+}
+
+/*blog-write*/
+.blog-write-title-box {
+    display: grid;
+    grid-template-columns: 22fr 2fr;
+}
+.blog-write-title {
+    background: none;
+    color: #303133;
+    text-indent: 0px;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 0;
+    line-height: 1;
+    overflow: visible;
+    margin-bottom: 15px;
+    padding: 4px;
+}
+.blog-write-title:focus {
+    border-color: #409eff;
 }
