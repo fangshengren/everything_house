@@ -7,10 +7,7 @@ import com.house.everything_house_backend.entities.Blog;
 import com.house.everything_house_backend.service.IBlogService;
 import com.house.everything_house_backend.service.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +37,12 @@ public class BlogController {
                              @RequestParam(name = "page", defaultValue = "1") int page) {
         Page<Blog> blogPage = blogService.getBlogs(limit, page);
         return Result.success(blogPage);
+    }
+
+    @AuthAccess
+    @GetMapping("/detail/{blogId}")
+    public Result getBlogDetail(@PathVariable int blogId) {
+        Blog blog = blogService.getBlogById(blogId);
+        return Result.success(blog);
     }
 }

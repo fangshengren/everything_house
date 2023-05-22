@@ -411,3 +411,8 @@ body > .el-container-blog {
 .blog-write-title:focus {
     border-color: #409eff;
 }
+.blog-image-uploader{
+    height: 20vh;
+    width: 20vw;
+    text-align: center;
+}

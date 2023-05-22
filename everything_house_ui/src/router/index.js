@@ -44,6 +44,15 @@ const routes = [
         path:'write',
         name:'BlogWrite',
         component:()=>import('../views/blog/BlogWrite.vue'),
+      },{
+        path:'moreBlogs',
+        name:'BlogMore',
+        component:()=>import('../views/blog/BlogMore.vue'),
+      }
+      ,{
+        path:'detail/:blogId',
+        name:'BlogDetail',
+        component:()=>import('../views/blog/BlogDetail.vue'),
       }
     ]
   }

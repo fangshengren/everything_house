@@ -45,4 +45,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
         return blogPage;
     }
+
+    @Override
+    public Blog getBlogById(int blogId) {
+        return blogMapper.selectById(blogId);
+    }
 }
