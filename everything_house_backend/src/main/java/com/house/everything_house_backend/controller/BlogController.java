@@ -3,6 +3,7 @@ package com.house.everything_house_backend.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.house.everything_house_backend.common.Result;
 import com.house.everything_house_backend.config.AuthAccess;
+import com.house.everything_house_backend.controller.dto.BlogDTO;
 import com.house.everything_house_backend.entities.Blog;
 import com.house.everything_house_backend.service.IBlogService;
 import com.house.everything_house_backend.service.IFileService;
@@ -45,4 +46,24 @@ public class BlogController {
         Blog blog = blogService.getBlogById(blogId);
         return Result.success(blog);
     }
+
+    @PostMapping("/saveBlog")
+    public Result saveBlog(@RequestBody BlogDTO blogDTO){
+        //前端传递过来标题、内容、作者ID、图片ID
+        Blog blog = new Blog();
+        blog.setBlogTitle(blogDTO.getBlogTitle());
+        blog.setBlogContent(blogDTO.getBlogContent());
+        blog.setUserId(blogDTO.getAuthorID());
+        //System.out.println("imgID"+blogDTO.getImgID());
+        blog.setCoverImageId(blogDTO.getImgID());
+        blog.setBlogStatus(1);
+        boolean isSaved = blogService.save(blog);
+        if (isSaved) {
+            // 获取新创建的博客的 ID，并将其返回
+            return Result.success(blog.getBlogId());
+        } else {
+            return Result.error("500", "保存博客失败");
+        }
+    }
+
 }

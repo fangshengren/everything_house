@@ -24,6 +24,7 @@
         FROM t_blog b
                  LEFT JOIN sys_file f ON b.cover_image_id = f.id
                  LEFT JOIN sys_user u ON b.userid = u.id
+        WHERE b.blog_status = 1
         ORDER BY b.blog_id
             LIMIT #{page}, #{limit}
     </select>

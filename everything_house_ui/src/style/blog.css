@@ -164,6 +164,25 @@ body > .el-container-blog {
     .blog-meta{
         display: none !important;
     }
+    /* 撰写页面图片上传小屏幕响应式设置 */
+    .blog-image-uploader{
+        height: 100px!important;
+        width: 100px!important;
+        line-height: 100px!important;
+    }
+    .blog-image-uploader .el-upload {
+        width: 100px!important;
+        height: 100px!important;
+    }
+    .blog-avatar-uploader-icon {
+        width: 100px!important;
+        height: 100px!important;
+        line-height: 100px!important;
+    }
+    .blog-avatar {
+        height: 100px!important;
+        width: 100px!important;
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1200px) {
@@ -223,6 +242,15 @@ body > .el-container-blog {
     }
     .blog-right-header-image{
         margin-left: 1rem;
+    }
+    .blog-detail-title{
+        font-size: 1rem;
+        line-height: 3rem;
+        height: 3rem;
+        font-weight: 700;
+        width: 50vw;
+        text-align: left;
+        margin:0 auto;
     }
 }
 
@@ -412,7 +440,41 @@ body > .el-container-blog {
     border-color: #409eff;
 }
 .blog-image-uploader{
-    height: 20vh;
-    width: 20vw;
+    height: calc(10vw);
+    width: calc(10vw);
+    line-height: calc(10vw);
+    text-align: left;
+    margin:0 0 1vw 1vw;
+}
+.blog-image-uploader .el-upload {
+    width: 10vw;
+    height: 10vw;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.blog-image-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.blog-avatar-uploader-icon {
+    font-size: 1rem;
+    color: #8c939d;
+    width: 10vw;
+    height: 10vw;
+    line-height: 10vw;
     text-align: center;
 }
+.blog-avatar {
+    height: 10vw;
+    width: 10vw;
+    display: block;
+}
+
+.blog-detail-content{
+    width: 50vw;
+    margin: 0 auto !important;
+}
+
+

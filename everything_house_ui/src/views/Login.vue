@@ -1,8 +1,8 @@
 <template>
   <div class="login_container">
-    <div class="login_log">
-      <img src="../image/mylog.png" alt="logo" height="150px">
-    </div>
+<!--    <div class="login_log">-->
+<!--      <img src="../image/mylog.png" alt="logo" height="150px">-->
+<!--    </div>-->
     <div class="login_box">
       <el-tabs type="card" v-model="activeLoginMethod">
       <el-tab-pane label="账号密码登入" name="passwordLogin" @click="turnToPasswordLogin">

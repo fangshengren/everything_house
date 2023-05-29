@@ -7,6 +7,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.house.everything_house_backend.common.Result;
+import com.house.everything_house_backend.config.AuthAccess;
 import com.house.everything_house_backend.entities.Files;
 import com.house.everything_house_backend.mapper.FileMapper;
 import com.house.everything_house_backend.service.IFileService;
@@ -125,6 +126,25 @@ public class FileController {
         files.setIsDelete(true);
         fileMapper.updateById(files);
         return Result.success();
+    }
+
+    @AuthAccess
+    @GetMapping("/getUrlId")
+    public Result getUrlId(@RequestParam String url){
+        //需要修改。理解错了selectOne
+        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("url",url);
+        try{
+            List<Files> files = fileMapper.selectList(queryWrapper);
+            if (files.isEmpty()) {
+                return Result.error();
+            }
+            Files file = files.get(0);
+            int fileId=file.getId();
+            return Result.success(fileId);
+        }catch (Exception e){
+            return Result.error();
+        }
     }
 
     @PostMapping("/del/batch")

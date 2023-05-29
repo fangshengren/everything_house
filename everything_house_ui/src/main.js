@@ -12,6 +12,7 @@ import dropdown from "@/utils/dropdown";
 //全局注册
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'	//解决编辑器的功能显示问题
+import 'github-markdown-css/github-markdown.css'
 
 Vue.config.productionTip = false
 Vue.use(mavonEditor)
