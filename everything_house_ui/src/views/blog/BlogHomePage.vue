@@ -22,7 +22,9 @@
                     <img :src="blog.coverImageUrl" alt="" />
                   </div>
                   <div class="blog-content">
-                    <h2 class="blog-title">{{ blog.blogTitle }}</h2>
+                    <router-link :to="`detail/${blog.blogId}`" class="blog-link">
+                      <h2 class="blog-title">{{ blog.blogTitle }}</h2>
+                    </router-link>
                     <p class="blog-excerpt">{{ truncateText(blog.blogContent,300) }}</p>
                     <div class="blog-meta">
                       <span class="blog-author">{{ blog.author }}</span>
@@ -62,9 +64,12 @@
   </div>
 </template>
 <script>
+import {baseURL} from "@/utils/request";
+
 export default {
   data() {
     return {
+      baseURL: baseURL,
       page: 1,
       loading: false,
       blogHomePicture: {
