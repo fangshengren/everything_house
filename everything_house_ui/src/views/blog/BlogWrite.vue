@@ -14,7 +14,7 @@
       <img v-if="form.img" :src="form.img" class="blog-avatar">
       <i v-else class="el-icon-plus blog-avatar-uploader-icon"></i>
     </el-upload>
-  <mavon-editor style="min-height: 80vh" ref="md" v-model="form.blogContent" :ishljs="true" @imgAdd="imgAdd" @save="" />
+  <pre><mavon-editor style="min-height: 80vh" ref="md" v-model="form.blogContent" :ishljs="true" @imgAdd="imgAdd" @save="" /></pre>
   </div>
 </template>
 <script>
@@ -94,3 +94,8 @@ export default{
 
 }
 </script>
+<style scoped>
+p{
+  white-space: pre-wrap!important;
+}
+</style>

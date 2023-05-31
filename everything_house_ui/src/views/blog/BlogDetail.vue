@@ -3,6 +3,7 @@
     <div class="blog-detail-title">
       标题:{{ article.blogTitle }}
     </div>
+    <pre>
     <mavon-editor v-if="article"
                   :subfield="false"
                   :defaultOpen="'preview'"
@@ -11,6 +12,7 @@
                   v-model="this.article.blogContent"
                   class="blog-detail-content">
     </mavon-editor>
+    </pre>
   </div>
 </template>
 
